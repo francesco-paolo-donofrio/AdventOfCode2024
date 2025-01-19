@@ -5,4 +5,7 @@ if (age < 50) {
 }
 ;
 console.log(age);
+let names = ["Max", "Manu"];
+names.push("Manoj");
+console.log(names);
 //# sourceMappingURL=index.js.map
