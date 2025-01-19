@@ -1,6 +1,10 @@
+import * as fs from 'fs';
+
 // Advent number.1
 
-import * as fs from 'fs';
+
+
+// Advent number.2
 
 function main() {
     const filePath = "C:\Users\newFr\OneDrive\Desktop\InputExercise.txt";
@@ -51,6 +55,3 @@ function isSicuro(numeri: number[]): boolean {
 }
 
 main();
-
-// Advent number.2
-
