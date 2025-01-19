@@ -1,16 +1,6 @@
-let age: number = 20;
-if (age < 50) {
-    age += 10;
-};
- console.log(age);
+// Advent number.1
 
-let names: string[] = ["Max", "Manu"];
-names.push("Manoj");
-console.log(names);
 
-let person: { name: string, age: number } = {
-    name: "Max",
-    age: 20
-};
-person.age = 30;
-console.log(person);
+
+// Advent number.2
+
