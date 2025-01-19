@@ -7,3 +7,10 @@ if (age < 50) {
 let names: string[] = ["Max", "Manu"];
 names.push("Manoj");
 console.log(names);
+
+let person: { name: string, age: number } = {
+    name: "Max",
+    age: 20
+};
+person.age = 30;
+console.log(person);
