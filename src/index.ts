@@ -1,3 +1,4 @@
+
 import * as fs from 'fs';
 
 // Advent number.1
