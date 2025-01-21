@@ -1,6 +1,7 @@
 
 import fs from 'fs';
 
+
 // Advent number.1
 
 
@@ -55,4 +56,4 @@ function isSicuro(numeri: number[]): boolean {
     return true;
 }
 
-main();
+console.log(main());

@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 function main() {
-    const filePath = "C:\Users\newFr\OneDrive\Desktop\InputExercise.txt";
+    const filePath = "C:\\Users\\newFr\\OneDrive\\Desktop\\InputExercise.txt";
     const fileContent = fs_1.default.readFileSync(filePath, 'utf-8');
     const lines = fileContent.split(/\r?\n/);
     console.log(lines);
@@ -47,5 +47,5 @@ function isSicuro(numeri) {
     }
     return true;
 }
-main();
+console.log(main());
 //# sourceMappingURL=index.js.map
