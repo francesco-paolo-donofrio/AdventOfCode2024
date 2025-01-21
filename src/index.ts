@@ -1,5 +1,5 @@
 
-import * as fs from 'fs';
+import fs from 'fs';
 
 // Advent number.1
 
@@ -8,7 +8,7 @@ import * as fs from 'fs';
 // Advent number.2
 
 function main() {
-    const filePath = "C:\Users\newFr\OneDrive\Desktop\InputExercise.txt";
+    const filePath = "C:\\Users\\newFr\\OneDrive\\Desktop\\InputExercise.txt";
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const lines = fileContent.split(/\r?\n/);
     console.log(lines);
