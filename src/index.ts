@@ -1,5 +1,6 @@
 
 import fs from 'fs';
+import * as readline from 'readline';
 
 
 // Advent number.1
@@ -57,3 +58,40 @@ function isSicuro(numeri: number[]): boolean {
 }
 
 console.log(main());
+
+
+
+
+
+
+
+// async function leggiFile(filePath: string): Promise<string[]> {
+//     const righe: string[] = [];
+
+//     // Creazione dello stream per la lettura del file
+//     const fileStream = fs.createReadStream(filePath);
+
+//     // Interfaccia readline per leggere il file riga per riga
+//     const rl = readline.createInterface({
+//         input: fileStream,
+//         crlfDelay: Infinity, // Supporta tutti i tipi di terminatori di riga (\n, \r\n)
+//     });
+
+//     // Leggi riga per riga
+//     for await (const line of rl) {
+//         righe.push(line);
+//     }
+
+//     return righe;
+// }
+
+// // Esempio di utilizzo
+// (async () => {
+//     const filePath = "C:\\Users\\newFr\\OneDrive\\Desktop\\InputExercise.txt";
+//     try {
+//         const righe = await leggiFile(filePath);
+//         console.log(righe); 
+//     } catch (error) {
+//         console.error("Errore durante la lettura del file:", error);
+//     }
+// })(); 
