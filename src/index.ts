@@ -1,87 +1,29 @@
-const fs = require('fs');
+import fs from 'fs';
+import { URL } from 'url';
 
-const filePath = "C:\\Desktop_nuovo\\esercizi-boolean\\Typescript\\AdventOfCode2024\\dist\\file-di-prova.txt";
-
-fs.readFile(filePath, 'utf-8', (err : any, data : any) => {
-    if (err) {
-        console.error('Errore nella lettura del file:', err);
-        return;
+function readFileContent(filePath: string): string[] {
+    try {
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        return fileContent.replace(/\r/g, '').split('\n');
+    } catch (error) {
+        console.error("Errore durante la lettura del file:", error);
+        return [];
     }
+}
 
-    console.log('Contenuto del file:');
-    console.log(data);
-});
+const filePath = new URL('C:\\Desktop_nuovo\\esercizi-boolean\\Typescript\\AdventOfCode2024\\dist\\file-di-prova.txt', import.meta.url).pathname;
+const lines = readFileContent(filePath);
 
-// Advent number.1
+// Logica di elaborazione delle linee qui
+console.log("File letto correttamente:", lines);
+// Questo approccio esegue la lettura e l'elaborazione direttamente, senza bisogno di chiamare una funzione main().
 
-// Advent number.2
+//  Copy
+// Retry
 
-// function main(): void {
-//     const filePath = "C:\\Desktop_nuovo\\esercizi-boolean\\Typescript\\AdventOfCode2024\\dist\\file-di-prova.txt";
-//     const fileContent = fs.readFileSync(filePath, 'utf-8');
-//          const lines = fileContent.split(/\r?\n/);
-//          console.log("File letto correttamente:", lines);
-//     for (let i = 0; i < 10; i++) {
-//         console.log("Riga " + i + ": " + lines[i]);
-//     }
-//     // try {
-//     //     // Leggi il contenuto del file
-//     //     const fileContent = fs.readFileSync(filePath, 'utf-8');
-//     //     const lines = fileContent.split(/\r?\n/);
-//     //     console.log("File letto correttamente:", lines);
 
-//     //     let totale = 0;
 
-//     //     for (const line of lines) {
-//     //         if (line.trim() === "") continue; // Ignora righe vuote
+// Claude can make mistakes. Please double-check responses.
 
-//     //         const numeri = line
-//     //             .split(" ")
-//     //             .map(s => parseInt(s))
-//     //             .filter(n => !isNaN(n)); // Filtra eventuali valori NaN
 
-//     //         console.log("Numeri analizzati:", numeri.join(" "));
 
-//     //         if (isSicuroConDampener(numeri)) {
-//     //             totale++;
-//     //         }
-//     //     }
-//     //     console.log("TOTALE: " + totale);
-//     // } catch (error) {
-//     //     console.error("Errore durante la lettura del file:", error);
-//     // }
-// }
-
-// function isSicuroConDampener(numeri: number[]): boolean {
-//     if (isSicuro(numeri)) {
-//         return true;
-//     }
-//     for (let i = 0; i < numeri.length; i++) {
-//         const numeriModificato = [...numeri];
-//         numeriModificato.splice(i, 1); // Rimuove un elemento
-//         if (isSicuro(numeriModificato)) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
-
-// function isSicuro(numeri: number[]): boolean {
-//     if (numeri.length < 2) return false; // Una sequenza con meno di due numeri non può essere sicura
-
-//     const crescente = numeri[0] < numeri[1];
-//     for (let i = 0; i < numeri.length - 1; i++) {
-//         const differenza = numeri[i + 1] - numeri[i];
-
-//         if (Math.abs(differenza) > 3 || differenza === 0) {
-//             return false;
-//         }
-//         if ((crescente && differenza < 0) || (!crescente && differenza > 0)) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
-// Esegui la funzione principale
-// console.log(main());
