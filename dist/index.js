@@ -1,5 +1,9 @@
-import fs from 'fs';
-import { URL } from 'url';
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const filePath = path.join(__dirname, '../dist/InputsAdvent/AdventInput.txt');
 function readFileContent(filePath) {
     try {
         const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -10,7 +14,13 @@ function readFileContent(filePath) {
         return [];
     }
 }
-const filePath = new URL('C:\\Desktop_nuovo\\esercizi-boolean\\Typescript\\AdventOfCode2024\\dist\\file-di-prova.txt', import.meta.url).pathname;
 const lines = readFileContent(filePath);
+readFileContent(filePath);
 console.log("File letto correttamente:", lines);
+function prova(stringArray) {
+    for (let i = 0; i < stringArray.length; i++) {
+        console.log(stringArray[i]);
+    }
+}
+prova(lines);
 //# sourceMappingURL=index.js.map

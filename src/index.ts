@@ -1,5 +1,11 @@
-import fs from 'fs';
-import { URL } from 'url';
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const filePath = path.join(__dirname, '../dist/InputsAdvent/AdventInput.txt');
 
 function readFileContent(filePath: string): string[] {
     try {
@@ -11,19 +17,18 @@ function readFileContent(filePath: string): string[] {
     }
 }
 
-const filePath = new URL('C:\\Desktop_nuovo\\esercizi-boolean\\Typescript\\AdventOfCode2024\\dist\\file-di-prova.txt', import.meta.url).pathname;
 const lines = readFileContent(filePath);
 
-// Logica di elaborazione delle linee qui
+readFileContent(filePath);
+
 console.log("File letto correttamente:", lines);
-// Questo approccio esegue la lettura e l'elaborazione direttamente, senza bisogno di chiamare una funzione main().
 
-//  Copy
-// Retry
+function prova(stringArray: string[]) {
+    for (let i = 0; i < stringArray.length; i++) {
+        console.log(stringArray[i]);
+    }
+}
 
-
-
-// Claude can make mistakes. Please double-check responses.
-
+prova(lines);
 
 
