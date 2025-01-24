@@ -1,32 +1,38 @@
-
 import fs from 'fs';
-import * as readline from 'readline';
-
 
 // Advent number.1
 
-
-
 // Advent number.2
 
-function main() {
+function main(): void {
     const filePath = "C:\\Users\\newFr\\OneDrive\\Desktop\\InputExercise.txt";
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const lines = fileContent.split(/\r?\n/);
-    console.log(lines);
-    let totale = 0;
 
-    for (const line of lines) {
-        if (line.trim() === "") continue;
+    try {
+        // Leggi il contenuto del file
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        const lines = fileContent.split(/\r?\n/);
+        console.log("File letto correttamente:", lines);
 
-        const numeri = line.split(" ").map(s => parseInt(s));
-        console.log(numeri.join(" "));
+        let totale = 0;
 
-        if (isSicuroConDampener(numeri)) {
-            totale++;
+        for (const line of lines) {
+            if (line.trim() === "") continue; // Ignora righe vuote
+
+            const numeri = line
+                .split(" ")
+                .map(s => parseInt(s))
+                .filter(n => !isNaN(n)); // Filtra eventuali valori NaN
+
+            console.log("Numeri analizzati:", numeri.join(" "));
+
+            if (isSicuroConDampener(numeri)) {
+                totale++;
+            }
         }
+        console.log("TOTALE: " + totale);
+    } catch (error) {
+        console.error("Errore durante la lettura del file:", error);
     }
-    console.log("TOTALE: " + totale);
 }
 
 function isSicuroConDampener(numeri: number[]): boolean {
@@ -35,7 +41,7 @@ function isSicuroConDampener(numeri: number[]): boolean {
     }
     for (let i = 0; i < numeri.length; i++) {
         const numeriModificato = [...numeri];
-        numeriModificato.splice(i, 1); 
+        numeriModificato.splice(i, 1); // Rimuove un elemento
         if (isSicuro(numeriModificato)) {
             return true;
         }
@@ -44,9 +50,12 @@ function isSicuroConDampener(numeri: number[]): boolean {
 }
 
 function isSicuro(numeri: number[]): boolean {
+    if (numeri.length < 2) return false; // Una sequenza con meno di due numeri non può essere sicura
+
     const crescente = numeri[0] < numeri[1];
     for (let i = 0; i < numeri.length - 1; i++) {
         const differenza = numeri[i + 1] - numeri[i];
+
         if (Math.abs(differenza) > 3 || differenza === 0) {
             return false;
         }
@@ -57,41 +66,6 @@ function isSicuro(numeri: number[]): boolean {
     return true;
 }
 
-console.log(main());
-
-
-
-
-
-
-
-// async function leggiFile(filePath: string): Promise<string[]> {
-//     const righe: string[] = [];
-
-//     // Creazione dello stream per la lettura del file
-//     const fileStream = fs.createReadStream(filePath);
-
-//     // Interfaccia readline per leggere il file riga per riga
-//     const rl = readline.createInterface({
-//         input: fileStream,
-//         crlfDelay: Infinity, // Supporta tutti i tipi di terminatori di riga (\n, \r\n)
-//     });
-
-//     // Leggi riga per riga
-//     for await (const line of rl) {
-//         righe.push(line);
-//     }
-
-//     return righe;
-// }
-
-// // Esempio di utilizzo
-// (async () => {
-//     const filePath = "C:\\Users\\newFr\\OneDrive\\Desktop\\InputExercise.txt";
-//     try {
-//         const righe = await leggiFile(filePath);
-//         console.log(righe); 
-//     } catch (error) {
-//         console.error("Errore durante la lettura del file:", error);
-//     }
-// })(); 
+// Esegui la funzione principale
+main();
+isSicuro([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]);

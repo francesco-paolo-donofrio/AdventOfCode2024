@@ -1,61 +1,62 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (this && this.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
-const readline_1 = __importDefault(require("readline"));
-function leggiFile(filePath) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a, e_1, _b, _c;
-        const righe = [];
-        const fileStream = fs_1.default.createReadStream(filePath);
-        const rl = readline_1.default.createInterface({
-            input: fileStream,
-            crlfDelay: Infinity,
-        });
-        try {
-            for (var _d = true, rl_1 = __asyncValues(rl), rl_1_1; rl_1_1 = yield rl_1.next(), _a = rl_1_1.done, !_a; _d = true) {
-                _c = rl_1_1.value;
-                _d = false;
-                const line = _c;
-                righe.push(line);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = rl_1.return)) yield _b.call(rl_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return righe;
-    });
-}
-(() => __awaiter(void 0, void 0, void 0, function* () {
+function main() {
     const filePath = "C:\\Users\\newFr\\OneDrive\\Desktop\\InputExercise.txt";
     try {
-        const righe = yield leggiFile(filePath);
-        console.log(righe);
+        const fileContent = fs_1.default.readFileSync(filePath, 'utf-8');
+        const lines = fileContent.split(/\r?\n/);
+        console.log("File letto correttamente:", lines);
+        let totale = 0;
+        for (const line of lines) {
+            if (line.trim() === "")
+                continue;
+            const numeri = line
+                .split(" ")
+                .map(s => parseInt(s))
+                .filter(n => !isNaN(n));
+            console.log("Numeri analizzati:", numeri.join(" "));
+            if (isSicuroConDampener(numeri)) {
+                totale++;
+            }
+        }
+        console.log("TOTALE: " + totale);
     }
     catch (error) {
         console.error("Errore durante la lettura del file:", error);
     }
-}))();
+}
+function isSicuroConDampener(numeri) {
+    if (isSicuro(numeri)) {
+        return true;
+    }
+    for (let i = 0; i < numeri.length; i++) {
+        const numeriModificato = [...numeri];
+        numeriModificato.splice(i, 1);
+        if (isSicuro(numeriModificato)) {
+            return true;
+        }
+    }
+    return false;
+}
+function isSicuro(numeri) {
+    if (numeri.length < 2)
+        return false;
+    const crescente = numeri[0] < numeri[1];
+    for (let i = 0; i < numeri.length - 1; i++) {
+        const differenza = numeri[i + 1] - numeri[i];
+        if (Math.abs(differenza) > 3 || differenza === 0) {
+            return false;
+        }
+        if ((crescente && differenza < 0) || (!crescente && differenza > 0)) {
+            return false;
+        }
+    }
+    return true;
+}
+main();
+isSicuro([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]);
 //# sourceMappingURL=index.js.map
