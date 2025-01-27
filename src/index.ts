@@ -23,12 +23,5 @@ readFileContent(filePath);
 
 console.log("File letto correttamente:", lines);
 
-function prova(stringArray: string[]) {
-    for (let i = 0; i < stringArray.length; i++) {
-        console.log(stringArray[i]);
-    }
-}
-
-prova(lines);
 
 

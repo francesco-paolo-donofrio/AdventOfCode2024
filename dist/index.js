@@ -17,10 +17,4 @@ function readFileContent(filePath) {
 const lines = readFileContent(filePath);
 readFileContent(filePath);
 console.log("File letto correttamente:", lines);
-function prova(stringArray) {
-    for (let i = 0; i < stringArray.length; i++) {
-        console.log(stringArray[i]);
-    }
-}
-prova(lines);
 //# sourceMappingURL=index.js.map
