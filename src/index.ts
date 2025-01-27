@@ -21,7 +21,15 @@ const lines = readFileContent(filePath);
 
 readFileContent(filePath);
 
-console.log("File letto correttamente:", lines);
+// console.log("File letto correttamente:", lines);
 
+// Advent 1
 
+const firstList : number[] = [];
+// const secondList : number[] = [];
 
+for (let i = 0; i < lines.length; i++){
+    lines[i].split("").push(firstList.toString())
+}
+
+console.log("Questo è la prima lista ", firstList)

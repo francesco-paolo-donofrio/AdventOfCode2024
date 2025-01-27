@@ -16,5 +16,9 @@ function readFileContent(filePath) {
 }
 const lines = readFileContent(filePath);
 readFileContent(filePath);
-console.log("File letto correttamente:", lines);
+const firstList = [];
+for (let i = 0; i < lines.length; i++) {
+    lines[0][i].split("").push(firstList.toString());
+}
+console.log("Questo è la prima lista ", firstList);
 //# sourceMappingURL=index.js.map
