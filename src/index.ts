@@ -25,11 +25,11 @@ readFileContent(filePath);
 
 // Advent 1
 
-const firstList : number[] = [];
+const firstList : any = [];
 // const secondList : number[] = [];
 
-for (let i = 0; i < lines.length; i++){
-    lines[i].split("").push(firstList.toString())
+for (let i : any = 0; i < lines.length; i++){
+    lines[i].trim().split(" ").map(el => firstList.trim().push(el));
 }
 
 console.log("Questo è la prima lista ", firstList)
