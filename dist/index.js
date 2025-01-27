@@ -16,9 +16,15 @@ function readFileContent(filePath) {
 }
 const lines = readFileContent(filePath);
 readFileContent(filePath);
-const firstList = [];
-for (let i = 0; i < lines.length; i++) {
-    lines[i].trim().split(" ").map(el => firstList.push(el));
+console.log("File letto correttamente:", lines);
+for (let i = 0; i < 10; i++) {
+    const parts = lines[i].split("/\s+/");
+    console.log(parts);
+    const firstNumber = parseInt(parts[0], 10);
+    const rightParts = lines[i].split(/\s+/);
+    const secondNumber = parseInt(rightParts[1], 10);
+    console.log("Questo è il secondo elemento ", secondNumber);
+    const leftList = [];
+    leftList.push(firstNumber);
 }
-console.log("Questo è la prima lista ", firstList);
 //# sourceMappingURL=index.js.map
