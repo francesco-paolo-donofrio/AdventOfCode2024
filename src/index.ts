@@ -25,8 +25,8 @@ console.log("File letto correttamente:", lines);
 
 // Advent 1
 
-const leftList : number[] = [];
-const rightList : number[] = [];
+const leftList: number[] = [];
+const rightList: number[] = [];
 
 // const rightParts = lines[1].split("/\s+/");
 // console.log("Questo è rightParts ", rightParts);
@@ -41,12 +41,11 @@ lines.forEach(string => {
     // console.log("Questo è secondNumber ", secondNumber);
     leftList.push(firstNumber);
     rightList.push(secondNumber);
-    console.log("Questo è leftList ", leftList);
-    console.log("Questo è rightList ", rightList);
 });
-// for (let i = 0; i < 10; i++){
-//     
-// }
+
+console.log("Questo è leftList ", leftList);
+console.log("Questo è rightList ", rightList);
+
 function calculateTotalDistance(leftList: number[], rightList: number[]): number {
 
     const sortedLeft = [...leftList].sort((a, b) => a - b);

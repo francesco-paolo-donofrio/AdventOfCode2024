@@ -19,15 +19,15 @@ readFileContent(filePath);
 console.log("File letto correttamente:", lines);
 const leftList = [];
 const rightList = [];
-for (let i = 0; i < 10; i++) {
-    const parts = lines[i].trim().replace(/\s+/g, ' ').split(' ');
+lines.forEach(string => {
+    const parts = string.trim().replace(/\s+/g, ' ').split(' ');
     const firstNumber = parseInt(parts[0], 10);
     const secondNumber = parseInt(parts[1], 10);
     leftList.push(firstNumber);
     rightList.push(secondNumber);
-    console.log("Questo è leftList ", leftList);
-    console.log("Questo è rightList ", rightList);
-}
+});
+console.log("Questo è leftList ", leftList);
+console.log("Questo è rightList ", rightList);
 function calculateTotalDistance(leftList, rightList) {
     const sortedLeft = [...leftList].sort((a, b) => a - b);
     const sortedRight = [...rightList].sort((a, b) => a - b);
