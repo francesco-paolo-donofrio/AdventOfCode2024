@@ -43,8 +43,8 @@ lines.forEach(string => {
     rightList.push(secondNumber);
 });
 
-console.log("Questo è leftList ", leftList);
-console.log("Questo è rightList ", rightList);
+// console.log("Questo è leftList ", leftList);
+// console.log("Questo è rightList ", rightList);
 
 function calculateTotalDistance(leftList: number[], rightList: number[]): number {
 
@@ -64,15 +64,18 @@ calculateTotalDistance(leftList, rightList);
 
 // Advent 1 second part
 
-function similarityScore(leftList: number[], rightList: number[]): void {
-    for (let i = 0; i < leftList.length; i++) {
-        const sameNumber = rightList.filter(num => num === leftList[i])
-        console.log(sameNumber);
-        // for (let y = 0; y < rightList.length; y++){
-        //     let count = 0;
-        //     if (rightList.includes(sameNumber))
-        // }
-    }
-}
-similarityScore(leftList, rightList);
+// function similarityScore(leftList: number[], rightList: number[]): void {
+//     for (let i = 0; i < leftList.length; i++) {
+//         const sameNumber = rightList.filter(num => num === leftList[i])
+//         // console.log("this is samenumber[0]" , sameNumber[0]);
+//         for (let y = 0; y < sameNumber.length; y++){
+//             // let sum = 0;
+//             console.log("this is samenumber.length" , sameNumber.length);
+//             console.log("this is samenumber[0]" , sameNumber[0]);
+//              let moltiplication = sameNumber[0] * sameNumber.length;
+//             console.log("moltiplication" , moltiplication);
+//         }
+//     }
+// }
+// similarityScore(leftList, rightList);
 

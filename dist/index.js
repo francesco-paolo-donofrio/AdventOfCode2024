@@ -16,7 +16,6 @@ function readFileContent(filePath) {
 }
 const lines = readFileContent(filePath);
 readFileContent(filePath);
-console.log("File letto correttamente:", lines);
 const leftList = [];
 const rightList = [];
 lines.forEach(string => {
@@ -26,8 +25,6 @@ lines.forEach(string => {
     leftList.push(firstNumber);
     rightList.push(secondNumber);
 });
-console.log("Questo è leftList ", leftList);
-console.log("Questo è rightList ", rightList);
 function calculateTotalDistance(leftList, rightList) {
     const sortedLeft = [...leftList].sort((a, b) => a - b);
     const sortedRight = [...rightList].sort((a, b) => a - b);
@@ -41,7 +38,12 @@ calculateTotalDistance(leftList, rightList);
 function similarityScore(leftList, rightList) {
     for (let i = 0; i < leftList.length; i++) {
         const sameNumber = rightList.filter(num => num === leftList[i]);
-        console.log(sameNumber);
+        for (let y = 0; y < sameNumber.length; y++) {
+            console.log("this is samenumber.length", sameNumber.length);
+            console.log("this is samenumber[0]", sameNumber[0]);
+            let moltiplication = sameNumber[0] * sameNumber.length;
+            console.log("moltiplication", moltiplication);
+        }
     }
 }
 similarityScore(leftList, rightList);
