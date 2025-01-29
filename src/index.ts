@@ -79,3 +79,22 @@ calculateTotalDistance(leftList, rightList);
 // }
 // similarityScore(leftList, rightList);
 
+function similarityScore(leftList: number[], rightList: number[]): number {
+    let totalScore = 0;
+
+    // Conta la frequenza dei numeri nella lista destra
+    const rightCounts = new Map<number, number>();
+    for (const num of rightList) {
+        rightCounts.set(num, (rightCounts.get(num) || 0) + 1);
+    }
+
+    // Calcola il punteggio di similarità
+    for (const num of leftList) {
+        const count = rightCounts.get(num) || 0;
+        totalScore += num * count;
+    }
+
+    return totalScore;
+}
+
+similarityScore(leftList, rightList);

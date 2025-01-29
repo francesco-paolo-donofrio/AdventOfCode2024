@@ -36,15 +36,16 @@ function calculateTotalDistance(leftList, rightList) {
 }
 calculateTotalDistance(leftList, rightList);
 function similarityScore(leftList, rightList) {
-    for (let i = 0; i < leftList.length; i++) {
-        const sameNumber = rightList.filter(num => num === leftList[i]);
-        for (let y = 0; y < sameNumber.length; y++) {
-            console.log("this is samenumber.length", sameNumber.length);
-            console.log("this is samenumber[0]", sameNumber[0]);
-            let moltiplication = sameNumber[0] * sameNumber.length;
-            console.log("moltiplication", moltiplication);
-        }
+    let totalScore = 0;
+    const rightCounts = new Map();
+    for (const num of rightList) {
+        rightCounts.set(num, (rightCounts.get(num) || 0) + 1);
     }
+    for (const num of leftList) {
+        const count = rightCounts.get(num) || 0;
+        totalScore += num * count;
+    }
+    return totalScore;
 }
 similarityScore(leftList, rightList);
 //# sourceMappingURL=index.js.map
