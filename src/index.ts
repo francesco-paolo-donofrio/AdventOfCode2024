@@ -21,9 +21,9 @@ const lines = readFileContent(filePath);
 
 readFileContent(filePath);
 
-console.log("File letto correttamente:", lines);
+// console.log("File letto correttamente:", lines);
 
-// Advent 1
+// Advent 1 first part
 
 const leftList: number[] = [];
 const rightList: number[] = [];
@@ -61,3 +61,18 @@ function calculateTotalDistance(leftList: number[], rightList: number[]): number
 }
 
 calculateTotalDistance(leftList, rightList);
+
+// Advent 1 second part
+
+function similarityScore(leftList: number[], rightList: number[]): void {
+    for (let i = 0; i < leftList.length; i++) {
+        const sameNumber = rightList.filter(num => num === leftList[i])
+        console.log(sameNumber);
+        // for (let y = 0; y < rightList.length; y++){
+        //     let count = 0;
+        //     if (rightList.includes(sameNumber))
+        // }
+    }
+}
+similarityScore(leftList, rightList);
+

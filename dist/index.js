@@ -38,4 +38,11 @@ function calculateTotalDistance(leftList, rightList) {
     return totalDistance;
 }
 calculateTotalDistance(leftList, rightList);
+function similarityScore(leftList, rightList) {
+    for (let i = 0; i < leftList.length; i++) {
+        const sameNumber = rightList.filter(num => num === leftList[i]);
+        console.log(sameNumber);
+    }
+}
+similarityScore(leftList, rightList);
 //# sourceMappingURL=index.js.map
