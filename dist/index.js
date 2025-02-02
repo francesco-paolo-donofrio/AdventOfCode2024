@@ -48,4 +48,10 @@ function similarityScore(leftList, rightList) {
     return totalScore;
 }
 similarityScore(leftList, rightList);
+const regex = "mul\\(\\d+,\\d+\\)";
+let exampleInput = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
+exampleInput = exampleInput;
+const matches = exampleInput.match(regex);
+let risultato = "";
+
 //# sourceMappingURL=index.js.map
