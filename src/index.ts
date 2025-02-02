@@ -100,13 +100,13 @@ function similarityScore(leftList: number[], rightList: number[]): number {
 similarityScore(leftList, rightList);
 
 // Advent 3 - First part
-const regex = "mul\\(\\d+,\\d+\\)";
+const regex = /mul\(\d+,\d+\)/g;
 let exampleInput : string = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
-exampleInput = exampleInput
-// function mullItOver(str : string): number {
-    
-// }
 
-const matches = exampleInput.match(regex);  
-let risultato = "";
 
+const risultato: string[] = [];
+for (const match of exampleInput.matchAll(regex)) {
+    risultato.push(match[0]);
+}
+
+console.log(risultato.join(""));
