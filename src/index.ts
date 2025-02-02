@@ -102,9 +102,10 @@ similarityScore(leftList, rightList);
 // Advent 3 - First part
 const regex = /mul\(\d+,\d+\)|do\(\)|don't\(\)/g;
 let finalResult = 0;
-// for (let y = 0; y < lines.length; y++){
+let flag = true;
+for (let y = 0; y < lines.length; y++){
 
-    let exampleInput : string = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
+    let exampleInput : string = lines[y];
     
 const risultato: string[] = [];
 for (const match of exampleInput.matchAll(regex)) {
@@ -120,11 +121,16 @@ for (let i = 0; i < risultato.length; i++){
 
 console.log(newResult);
 
-
 for (let i = 0; i < newResult.length; i++){
-    let arrayString : string[] = [];
-    arrayString = newResult[i].split(",");
-    finalResult += parseInt(arrayString[0]) * parseInt(arrayString[1]);
+    if (newResult[i] === "don't"){
+        flag = false;
+    } if (newResult[i] === "do"){
+        flag = true;
+    } else if (flag){
+        let arrayString : string[] = [];
+        arrayString = newResult[i].split(",");
+        finalResult += parseInt(arrayString[0]) * parseInt(arrayString[1]);
+    } 
 }
-// }
+}
 console.log(finalResult);

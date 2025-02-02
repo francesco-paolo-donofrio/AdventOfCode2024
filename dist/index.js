@@ -50,21 +50,32 @@ function similarityScore(leftList, rightList) {
 similarityScore(leftList, rightList);
 const regex = /mul\(\d+,\d+\)|do\(\)|don't\(\)/g;
 let finalResult = 0;
-let exampleInput = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
-const risultato = [];
-for (const match of exampleInput.matchAll(regex)) {
-    risultato.push(match[0]);
-}
-console.log(risultato);
-const newResult = [];
-for (let i = 0; i < risultato.length; i++) {
-    newResult[i] = risultato[i].replace(/[mul()]/g, "");
-}
-console.log(newResult);
-for (let i = 0; i < newResult.length; i++) {
-    let arrayString = [];
-    arrayString = newResult[i].split(",");
-    finalResult += parseInt(arrayString[0]) * parseInt(arrayString[1]);
+let flag = true;
+for (let y = 0; y < lines.length; y++) {
+    let exampleInput = lines[y];
+    const risultato = [];
+    for (const match of exampleInput.matchAll(regex)) {
+        risultato.push(match[0]);
+    }
+    console.log(risultato);
+    const newResult = [];
+    for (let i = 0; i < risultato.length; i++) {
+        newResult[i] = risultato[i].replace(/[mul()]/g, "");
+    }
+    console.log(newResult);
+    for (let i = 0; i < newResult.length; i++) {
+        if (newResult[i] === "don't") {
+            flag = false;
+        }
+        if (newResult[i] === "do") {
+            flag = true;
+        }
+        else if (flag) {
+            let arrayString = [];
+            arrayString = newResult[i].split(",");
+            finalResult += parseInt(arrayString[0]) * parseInt(arrayString[1]);
+        }
+    }
 }
 console.log(finalResult);
 //# sourceMappingURL=index.js.map
