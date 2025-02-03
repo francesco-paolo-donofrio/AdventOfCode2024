@@ -134,3 +134,107 @@ for (let i = 0; i < newResult.length; i++){
 }
 }
 console.log(finalResult);
+
+// Esercizi avvento array bidimensionali
+
+// Esercizio 1:
+// Somma degli elementi di una matrice
+// Scrivi un programma che calcola la somma di tutti gli elementi in una matrice di interi.
+// Esempio:
+// Input:
+// 1 2 3
+// 4 5 6
+// 7 8 9
+
+// Output:
+// Somma totale: 45
+
+// Obiettivo didattico: Imparare a iterare su ogni elemento di una matrice usando doppi cicli.
+// ------------------------------------------------------------------------------------------------------------------------------------
+// Esercizio 2:
+// Trova il massimo e il minimo in una matrice
+// Scrivi un programma che trova il valore massimo e il valore minimo in una matrice di interi.
+// Esempio:
+// Input:
+// 3 5 1
+// 7 2 9
+// 4 6 8
+
+// Output:
+// Massimo: 9
+// Minimo: 1
+
+// Obiettivo didattico: Prendere confidenza con il confronto tra gli elementi di una matrice.
+// ------------------------------------------------------------------------------------------------------------------------------------
+// Esercizio 3:
+// Somma delle righe e delle colonne
+// Calcola la somma degli elementi di ciascuna riga e di ciascuna colonna.
+// Esempio:
+// Input:
+// 2 3 4
+// 5 6 7
+// 8 9 10
+
+// Output:
+// Somma righe: [9, 18, 27]
+// Somma colonne: [15, 18, 21]
+
+// Obiettivo didattico: Imparare a navigare separatamente righe e colonne.
+// ------------------------------------------------------------------------------------------------------------------------------------
+// Esercizio 4:
+// Trasposizione di una matrice
+// Scrivi un programma che calcola la trasposta di una matrice. La trasposta si ottiene scambiando righe e colonne.
+// Esempio:
+// Input:
+// 1 2 3
+// 4 5 6
+
+// Output (trasposta):
+// 1 4
+// 2 5
+// 3 6
+
+// Obiettivo didattico: Comprendere come accedere agli elementi di una matrice in modo non sequenziale.
+// ------------------------------------------------------------------------------------------------------------------------------------
+// Esercizio 5:
+// Trova un elemento specifico nella matrice
+// Dato un numero, verifica se è presente nella matrice e restituisci la posizione (riga, colonna).
+// Esempio:
+// Input:
+// Matrice:
+// 1 2 3
+// 4 5 6
+// 7 8 9
+// Numero da cercare: 5
+
+// Output:
+// Trovato alla posizione: (1, 1)
+
+// Obiettivo didattico: Comprendere l'accesso agli indici e la ricerca in una matrice.
+// ------------------------------------------------------------------------------------------------------------------------------------
+// Esercizio 6:
+// Conta elementi pari e dispari
+// Scrivi un programma che conta quanti numeri pari e dispari ci sono in una matrice.
+// Esempio:
+// Input:
+// 2 5 8
+// 7 4 1
+// 9 6 3
+
+// Output:
+// Pari: 5
+// Dispari: 4
+
+// Obiettivo didattico: Combinare condizioni logiche con iterazioni su matrici.
+// ------------------------------------------------------------------------------------------------------------------------------------
+// Esercizio 7:
+// Confine della matrice
+// Dato una matrice, stampa solo i numeri sul bordo (cioè quelli sulla prima e ultima riga e colonna).
+// Esempio:
+// Input:
+// 1 2 3
+// 4 5 6
+// 7 8 9
+
+// Output:
+// ... (48 righe a disposizione)
