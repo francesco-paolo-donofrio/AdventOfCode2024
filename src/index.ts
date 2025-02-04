@@ -240,14 +240,42 @@ console.log(finalResult);
 // ... (48 righe a disposizione)
 
 // Advent of code n°4
-let verticalLength : any = lines.length; 
+let verticalLength : number = lines.length; 
 console.log(verticalLength);
-let orizzontalLength : any= lines[0].length;
+let orizzontalLength : number = lines[0].length;
 console.log(orizzontalLength);
 let arrayBidim :string[][] = [];
 
+
+
+for (let str of lines){
+    arrayBidim.push(str.split(""))
+}
+
+console.log(arrayBidim[0]);
+
+let total : number = 0;
+
 for (let i = 0; i < verticalLength; i++){
     for (let j = 0; j < orizzontalLength; j++){
-        arrayBidim[i][j] = 
+        if (arrayBidim[i][j] === 'X'){
+            total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
+        }
     }
 }
+
+function orizzontalControl(arrayBidim :string[][], i : number, j : number, orizzontalLength : number) : number{
+    let tot = 0;
+    
+    // Controllo da destra a sinistra
+    if (j >= 3){
+        if (arrayBidim[i][j - 1] === "M" && arrayBidim[i][j - 2] === "A" && arrayBidim[i][j - 3] === "S"){
+            tot ++;
+        }
+    }
+
+    // Controllo da sinistra a destra 
+    return tot;
+}
+
+console.log(total);

@@ -78,6 +78,30 @@ for (let y = 0; y < lines.length; y++) {
     }
 }
 console.log(finalResult);
+let verticalLength = lines.length;
+console.log(verticalLength);
 let orizzontalLength = lines[0].length;
 console.log(orizzontalLength);
+let arrayBidim = [];
+for (let str of lines) {
+    arrayBidim.push(str.split(""));
+}
+console.log(arrayBidim[0]);
+let total = 0;
+for (let i = 0; i < verticalLength; i++) {
+    for (let j = 0; j < orizzontalLength; j++) {
+        if (arrayBidim[i][j] === 'X') {
+            total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
+        }
+    }
+}
+function orizzontalControl(arrayBidim, i, j, orizzontalLength) {
+    arrayBidim;
+    orizzontalLength;
+    i;
+    j;
+    let tot = 1;
+    return tot;
+}
+console.log(total);
 //# sourceMappingURL=index.js.map
