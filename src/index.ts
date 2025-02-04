@@ -238,3 +238,6 @@ console.log(finalResult);
 
 // Output:
 // ... (48 righe a disposizione)
+
+// Advent of code n°4
+
