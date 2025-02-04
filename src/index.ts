@@ -240,4 +240,14 @@ console.log(finalResult);
 // ... (48 righe a disposizione)
 
 // Advent of code n°4
+let verticalLength : any = lines.length; 
+console.log(verticalLength);
+let orizzontalLength : any= lines[0].length;
+console.log(orizzontalLength);
+let arrayBidim :string[][] = [];
 
+for (let i = 0; i < verticalLength; i++){
+    for (let j = 0; j < orizzontalLength; j++){
+        arrayBidim[i][j] = 
+    }
+}

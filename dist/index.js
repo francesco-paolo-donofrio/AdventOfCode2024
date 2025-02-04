@@ -78,4 +78,6 @@ for (let y = 0; y < lines.length; y++) {
     }
 }
 console.log(finalResult);
+let orizzontalLength = lines[0].length;
+console.log(orizzontalLength);
 //# sourceMappingURL=index.js.map
