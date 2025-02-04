@@ -103,35 +103,35 @@ similarityScore(leftList, rightList);
 const regex = /mul\(\d+,\d+\)|do\(\)|don't\(\)/g;
 let finalResult = 0;
 let flag = true;
-for (let y = 0; y < lines.length; y++){
+for (let y = 0; y < lines.length; y++) {
 
-    let exampleInput : string = lines[y];
-    
-const risultato: string[] = [];
-for (const match of exampleInput.matchAll(regex)) {
-    risultato.push(match[0]);
-    // console.log(risultato);
-}
+    let exampleInput: string = lines[y];
 
-console.log(risultato);
-const newResult : string[] = [];
-for (let i = 0; i < risultato.length; i++){
-    newResult[i] = risultato[i].replace(/[mul()]/g, "");
-}
+    const risultato: string[] = [];
+    for (const match of exampleInput.matchAll(regex)) {
+        risultato.push(match[0]);
+        // console.log(risultato);
+    }
 
-console.log(newResult);
+    console.log(risultato);
+    const newResult: string[] = [];
+    for (let i = 0; i < risultato.length; i++) {
+        newResult[i] = risultato[i].replace(/[mul()]/g, "");
+    }
 
-for (let i = 0; i < newResult.length; i++){
-    if (newResult[i] === "don't"){
-        flag = false;
-    } if (newResult[i] === "do"){
-        flag = true;
-    } else if (flag){
-        let arrayString : string[] = [];
-        arrayString = newResult[i].split(",");
-        finalResult += parseInt(arrayString[0]) * parseInt(arrayString[1]);
-    } 
-}
+    console.log(newResult);
+
+    for (let i = 0; i < newResult.length; i++) {
+        if (newResult[i] === "don't") {
+            flag = false;
+        } if (newResult[i] === "do") {
+            flag = true;
+        } else if (flag) {
+            let arrayString: string[] = [];
+            arrayString = newResult[i].split(",");
+            finalResult += parseInt(arrayString[0]) * parseInt(arrayString[1]);
+        }
+    }
 }
 console.log(finalResult);
 
@@ -240,42 +240,66 @@ console.log(finalResult);
 // ... (48 righe a disposizione)
 
 // Advent of code n°4
-let verticalLength : number = lines.length; 
+let verticalLength: number = lines.length;
 console.log(verticalLength);
-let orizzontalLength : number = lines[0].length;
+let orizzontalLength: number = lines[0].length;
 console.log(orizzontalLength);
-let arrayBidim :string[][] = [];
+let arrayBidim: string[][] = [];
 
 
 
-for (let str of lines){
+for (let str of lines) {
     arrayBidim.push(str.split(""))
 }
 
 console.log(arrayBidim[0]);
 
-let total : number = 0;
+let total: number = 0;
 
-for (let i = 0; i < verticalLength; i++){
-    for (let j = 0; j < orizzontalLength; j++){
-        if (arrayBidim[i][j] === 'X'){
+for (let i = 0; i < verticalLength; i++) {
+    for (let j = 0; j < orizzontalLength; j++) {
+        if (arrayBidim[i][j] === 'X') {
             total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
+            total += verticalControl(arrayBidim, i, j, verticalLength);
         }
     }
 }
 
-function orizzontalControl(arrayBidim :string[][], i : number, j : number, orizzontalLength : number) : number{
+function orizzontalControl(arrayBidim: string[][], i: number, j: number, orizzontalLength: number): number {
     let tot = 0;
-    
-    // Controllo da destra a sinistra
-    if (j >= 3){
-        if (arrayBidim[i][j - 1] === "M" && arrayBidim[i][j - 2] === "A" && arrayBidim[i][j - 3] === "S"){
-            tot ++;
+
+    // Controllo orizzontale da destra a sinistra
+    if (j >= 3) {
+        if (arrayBidim[i][j - 1] === "M" && arrayBidim[i][j - 2] === "A" && arrayBidim[i][j - 3] === "S") {
+            tot++;
         }
     }
 
-    // Controllo da sinistra a destra 
+    // Controllo orizzontale da sinistra a destra 
+
+    if (j <= orizzontalLength - 4) {
+        if (arrayBidim[i][j + 1] === "M" && arrayBidim[i][j + 2] === "A" && arrayBidim[i][j + 3] === "S") {
+            tot++;
+        }
+    }
     return tot;
 }
 
+function verticalControl(arrayBidim: string[][], i: number, j: number, verticalLength: number): number {
+    let tot = 0;
+    // Controllo da sopra a sotto
+    if (i <= verticalLength - 4) {
+        if (arrayBidim[i + 1][j] === "M" && arrayBidim[i + 2][j] === "A" && arrayBidim[i + 3][j] === "S") {
+            tot++;
+        }
+    }
+
+    if (i >= 3) {
+        if (arrayBidim[i - 1][j] === "M" && arrayBidim[i - 2][j] === "A" && arrayBidim[i - 3][j] === "S") {
+            tot++;
+        }
+    }
+    return tot;
+}
 console.log(total);
+

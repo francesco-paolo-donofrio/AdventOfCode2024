@@ -92,15 +92,36 @@ for (let i = 0; i < verticalLength; i++) {
     for (let j = 0; j < orizzontalLength; j++) {
         if (arrayBidim[i][j] === 'X') {
             total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
+            total += verticalControl(arrayBidim, i, j, verticalLength);
         }
     }
 }
 function orizzontalControl(arrayBidim, i, j, orizzontalLength) {
-    arrayBidim;
-    orizzontalLength;
-    i;
-    j;
-    let tot = 1;
+    let tot = 0;
+    if (j >= 3) {
+        if (arrayBidim[i][j - 1] === "M" && arrayBidim[i][j - 2] === "A" && arrayBidim[i][j - 3] === "S") {
+            tot++;
+        }
+    }
+    if (j <= orizzontalLength - 4) {
+        if (arrayBidim[i][j + 1] === "M" && arrayBidim[i][j + 2] === "A" && arrayBidim[i][j + 3] === "S") {
+            tot++;
+        }
+    }
+    return tot;
+}
+function verticalControl(arrayBidim, i, j, verticalLength) {
+    let tot = 0;
+    if (i <= verticalLength - 4) {
+        if (arrayBidim[i + 1][j] === "M" && arrayBidim[i + 2][j] === "A" && arrayBidim[i + 3][j] === "S") {
+            tot++;
+        }
+    }
+    if (i >= 3) {
+        if (arrayBidim[i - 1][j] === "M" && arrayBidim[i - 2][j] === "A" && arrayBidim[i - 3][j] === "S") {
+            tot++;
+        }
+    }
     return tot;
 }
 console.log(total);
