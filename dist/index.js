@@ -93,6 +93,7 @@ for (let i = 0; i < verticalLength; i++) {
         if (arrayBidim[i][j] === 'X') {
             total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
             total += verticalControl(arrayBidim, i, j, verticalLength);
+            total += diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength);
         }
     }
 }
@@ -119,6 +120,30 @@ function verticalControl(arrayBidim, i, j, verticalLength) {
     }
     if (i >= 3) {
         if (arrayBidim[i - 1][j] === "M" && arrayBidim[i - 2][j] === "A" && arrayBidim[i - 3][j] === "S") {
+            tot++;
+        }
+    }
+    return tot;
+}
+function diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength) {
+    let tot = 0;
+    if (j >= 3 && i <= verticalLength - 4) {
+        if (arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 2][j - 2] === "A" && arrayBidim[i + 3][j - 3] === "S") {
+            tot++;
+        }
+    }
+    if (j <= orizzontalLength - 4 && i >= 3) {
+        if (arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i - 2][j + 2] === "A" && arrayBidim[i - 3][j + 3] === "S") {
+            tot++;
+        }
+    }
+    if (j <= orizzontalLength - 4 && i <= verticalLength - 4) {
+        if (arrayBidim[i + 1][j + 1] === "M" && arrayBidim[i + 2][j + 2] === "A" && arrayBidim[i + 3][j + 3] === "S") {
+            tot++;
+        }
+    }
+    if (i >= 3 && j >= 3) {
+        if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i - 2][j - 2] === "A" && arrayBidim[i - 3][j - 3] === "S") {
             tot++;
         }
     }

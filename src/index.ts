@@ -261,6 +261,7 @@ for (let i = 0; i < verticalLength; i++) {
         if (arrayBidim[i][j] === 'X') {
             total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
             total += verticalControl(arrayBidim, i, j, verticalLength);
+            total += diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength);
         }
     }
 }
@@ -296,6 +297,41 @@ function verticalControl(arrayBidim: string[][], i: number, j: number, verticalL
 
     if (i >= 3) {
         if (arrayBidim[i - 1][j] === "M" && arrayBidim[i - 2][j] === "A" && arrayBidim[i - 3][j] === "S") {
+            tot++;
+        }
+    }
+    return tot;
+}
+
+function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzontalLength: number, verticalLength : number): number {
+    let tot = 0;
+    // Controllo da sopra a destra a sotto a sinistra
+    if (j >= 3 && i <= verticalLength - 4){
+        if (arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 2][j - 2] === "A" && arrayBidim[i + 3][j - 3] === "S") {
+            tot++;
+        }
+    }
+
+    // Controllo da sotto a sinistra a sopra a destra
+
+    if (j <= orizzontalLength - 4 && i >= 3){
+        if (arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i - 2][j + 2] === "A" && arrayBidim[i - 3][j + 3] === "S") {
+            tot++;
+        }
+    }
+
+    // Controllo da sopra a sinistra a sotto a destra
+
+    if (j <= orizzontalLength - 4 && i <= verticalLength - 4){
+        if (arrayBidim[i + 1][j + 1] === "M" && arrayBidim[i + 2][j + 2] === "A" && arrayBidim[i + 3][j + 3] === "S") {
+            tot++;
+        }
+    } 
+
+    // Controllo da sotto a destra a sopra a sinistra
+
+    if (i >= 3 && j >= 3){
+        if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i - 2][j - 2] === "A" && arrayBidim[i - 3][j - 3] === "S") {
             tot++;
         }
     }
