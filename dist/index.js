@@ -16,138 +16,34 @@ function readFileContent(filePath) {
 }
 const lines = readFileContent(filePath);
 readFileContent(filePath);
-const leftList = [];
-const rightList = [];
-lines.forEach(string => {
-    const parts = string.trim().replace(/\s+/g, ' ').split(' ');
-    const firstNumber = parseInt(parts[0], 10);
-    const secondNumber = parseInt(parts[1], 10);
-    leftList.push(firstNumber);
-    rightList.push(secondNumber);
-});
-function calculateTotalDistance(leftList, rightList) {
-    const sortedLeft = [...leftList].sort((a, b) => a - b);
-    const sortedRight = [...rightList].sort((a, b) => a - b);
-    let totalDistance = 0;
-    for (let i = 0; i < sortedLeft.length; i++) {
-        totalDistance += Math.abs(sortedLeft[i] - sortedRight[i]);
-    }
-    return totalDistance;
+console.log(lines[0]);
+let arrayString = [];
+arrayString[0] = "lots";
+console.log(arrayString[0]);
+let stringExample = "lots";
+let car = 'a';
+const valueOfA = car.toLowerCase().charCodeAt(0);
+const arr = new Array(26).fill(0);
+console.log(arr);
+for (let i = 0; i < stringExample.length; i++) {
+    let char = stringExample.toLowerCase().charAt(i);
+    arr[char.charCodeAt(0) - valueOfA]++;
 }
-calculateTotalDistance(leftList, rightList);
-function similarityScore(leftList, rightList) {
-    let totalScore = 0;
-    const rightCounts = new Map();
-    for (const num of rightList) {
-        rightCounts.set(num, (rightCounts.get(num) || 0) + 1);
+let contoAnagramma = 0;
+for (let i = 0; i < lines.length; i++) {
+    const arrDiControllo = new Array(26).fill(0);
+    if (lines[i].length != stringExample.length) {
+        continue;
     }
-    for (const num of leftList) {
-        const count = rightCounts.get(num) || 0;
-        totalScore += num * count;
+    for (let j = 0; j < stringExample.length; j++) {
+        let char = lines[i].toLowerCase().charAt(j);
+        arrDiControllo[char.charCodeAt(0) - valueOfA]++;
     }
-    return totalScore;
-}
-similarityScore(leftList, rightList);
-const regex = /mul\(\d+,\d+\)|do\(\)|don't\(\)/g;
-let finalResult = 0;
-let flag = true;
-for (let y = 0; y < lines.length; y++) {
-    let exampleInput = lines[y];
-    const risultato = [];
-    for (const match of exampleInput.matchAll(regex)) {
-        risultato.push(match[0]);
-    }
-    console.log(risultato);
-    const newResult = [];
-    for (let i = 0; i < risultato.length; i++) {
-        newResult[i] = risultato[i].replace(/[mul()]/g, "");
-    }
-    console.log(newResult);
-    for (let i = 0; i < newResult.length; i++) {
-        if (newResult[i] === "don't") {
-            flag = false;
-        }
-        if (newResult[i] === "do") {
-            flag = true;
-        }
-        else if (flag) {
-            let arrayString = [];
-            arrayString = newResult[i].split(",");
-            finalResult += parseInt(arrayString[0]) * parseInt(arrayString[1]);
+    if (lines[i] !== stringExample) {
+        if (arr.length === arrDiControllo.length && arr.every((value, index) => value === arrDiControllo[index])) {
+            contoAnagramma++;
         }
     }
 }
-console.log(finalResult);
-let verticalLength = lines.length;
-console.log(verticalLength);
-let orizzontalLength = lines[0].length;
-console.log(orizzontalLength);
-let arrayBidim = [];
-for (let str of lines) {
-    arrayBidim.push(str.split(""));
-}
-console.log(arrayBidim[0]);
-let total = 0;
-for (let i = 0; i < verticalLength; i++) {
-    for (let j = 0; j < orizzontalLength; j++) {
-        if (arrayBidim[i][j] === 'X') {
-            total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
-            total += verticalControl(arrayBidim, i, j, verticalLength);
-            total += diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength);
-        }
-    }
-}
-function orizzontalControl(arrayBidim, i, j, orizzontalLength) {
-    let tot = 0;
-    if (j >= 3) {
-        if (arrayBidim[i][j - 1] === "M" && arrayBidim[i][j - 2] === "A" && arrayBidim[i][j - 3] === "S") {
-            tot++;
-        }
-    }
-    if (j <= orizzontalLength - 4) {
-        if (arrayBidim[i][j + 1] === "M" && arrayBidim[i][j + 2] === "A" && arrayBidim[i][j + 3] === "S") {
-            tot++;
-        }
-    }
-    return tot;
-}
-function verticalControl(arrayBidim, i, j, verticalLength) {
-    let tot = 0;
-    if (i <= verticalLength - 4) {
-        if (arrayBidim[i + 1][j] === "M" && arrayBidim[i + 2][j] === "A" && arrayBidim[i + 3][j] === "S") {
-            tot++;
-        }
-    }
-    if (i >= 3) {
-        if (arrayBidim[i - 1][j] === "M" && arrayBidim[i - 2][j] === "A" && arrayBidim[i - 3][j] === "S") {
-            tot++;
-        }
-    }
-    return tot;
-}
-function diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength) {
-    let tot = 0;
-    if (j >= 3 && i <= verticalLength - 4) {
-        if (arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 2][j - 2] === "A" && arrayBidim[i + 3][j - 3] === "S") {
-            tot++;
-        }
-    }
-    if (j <= orizzontalLength - 4 && i >= 3) {
-        if (arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i - 2][j + 2] === "A" && arrayBidim[i - 3][j + 3] === "S") {
-            tot++;
-        }
-    }
-    if (j <= orizzontalLength - 4 && i <= verticalLength - 4) {
-        if (arrayBidim[i + 1][j + 1] === "M" && arrayBidim[i + 2][j + 2] === "A" && arrayBidim[i + 3][j + 3] === "S") {
-            tot++;
-        }
-    }
-    if (i >= 3 && j >= 3) {
-        if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i - 2][j - 2] === "A" && arrayBidim[i - 3][j - 3] === "S") {
-            tot++;
-        }
-    }
-    return tot;
-}
-console.log(total);
+console.log(contoAnagramma);
 //# sourceMappingURL=index.js.map
