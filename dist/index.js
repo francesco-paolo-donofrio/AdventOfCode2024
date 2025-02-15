@@ -16,15 +16,12 @@ function readFileContent(filePath) {
 }
 const lines = readFileContent(filePath);
 readFileContent(filePath);
-console.log(lines[0]);
 let arrayString = [];
 arrayString[0] = "lots";
-console.log(arrayString[0]);
 let stringExample = "lots";
 let car = 'a';
 const valueOfA = car.toLowerCase().charCodeAt(0);
 const arr = new Array(26).fill(0);
-console.log(arr);
 for (let i = 0; i < stringExample.length; i++) {
     let char = stringExample.toLowerCase().charAt(i);
     arr[char.charCodeAt(0) - valueOfA]++;
