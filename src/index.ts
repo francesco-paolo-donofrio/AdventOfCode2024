@@ -339,17 +339,22 @@ readFileContent(filePath);
 // }
 // console.log(total);
 
-// Esercizio vincenzo Anagrammi
-console.log(lines[0]);
+// Esercizio Anagrammi
+
+// console.log(lines[0]);
+
 let arrayString : string[] = [];
 arrayString[0] = "lots";
-console.log(arrayString[0]);
+
+// console.log(arrayString[0]);
+
 let stringExample : string = "lots";
 let car : string = 'a';
 const valueOfA : number = car.toLowerCase().charCodeAt(0);
 
 const arr : number[] = new Array(26).fill(0);
-console.log(arr);
+
+// console.log(arr);
 
 for (let i = 0; i < stringExample.length; i++){
     let char : string = stringExample.toLowerCase().charAt(i);
@@ -357,6 +362,7 @@ for (let i = 0; i < stringExample.length; i++){
 }
 
 let contoAnagramma : number = 0;
+
 for (let i = 0; i < lines.length; i++){
     const arrDiControllo : number[] = new Array(26).fill(0);
     if (lines[i].length != stringExample.length){
