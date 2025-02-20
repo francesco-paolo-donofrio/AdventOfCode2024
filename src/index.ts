@@ -255,6 +255,7 @@ for (let str of lines) {
 console.log(arrayBidim[0]);
 
 let total: number = 0;
+let totalPartTwo: number = 0;
 
 for (let i = 0; i < verticalLength; i++) {
     for (let j = 0; j < orizzontalLength; j++) {
@@ -262,6 +263,10 @@ for (let i = 0; i < verticalLength; i++) {
             total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
             total += verticalControl(arrayBidim, i, j, verticalLength);
             total += diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength);
+        } else if(arrayBidim[i][j] === 'A') {
+            if (i > 0 && i <= verticalLength - 1 && j >= 1 && j <= orizzontalLength - 1){
+                totalPartTwo += masControl(arrayBidim, i, j)
+            }
         }
     }
 }
@@ -337,5 +342,22 @@ function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzonta
     }
     return tot;
 }
-console.log(total);
+
+function masControl(arrayBidim: string[][], i: number, j: number): number {
+    let tot = 0;
+    if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j + 1] === "S"){
+        tot ++;
+    }
+    if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j + 1] === "M"){
+        tot ++;
+    }
+    if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i + 1][j + 1] === "S"){
+        tot ++;
+    }
+    if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 1][j + 1] === "M"){
+        tot ++;
+    }
+    return tot;
+}
+console.log(totalPartTwo);
 
