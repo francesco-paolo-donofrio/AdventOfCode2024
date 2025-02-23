@@ -461,24 +461,13 @@ for (let i = 0; i < lines.length; i++) {
         // console.log(splittedLines);
         const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
         values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
-        hashMap.set(splittedLines[0], splittedLines[1])
+        // hashMap.set(splittedLines[0], splittedLines[1])
     } else {
         break copiando;
     }
 }
 
-console.log(hashMap);
 
-const myMap = new Map<string, number[]>();
-
-// Aggiungiamo un array vuoto se la chiave non esiste
-
-console.log(myMap.get("numeri")); // Output: [42]
-
-// Aggiungiamo un altro numero alla stessa chiave
-computeIfAbsent(myMap, "numeri", () => []).push(99);
-
-console.log(myMap.get("numeri")); // Output: [42, 99]
 
 
 function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K) => V): V {
@@ -488,3 +477,5 @@ function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K)
     }
     return map.get(key)!;
 }
+
+console.log(hashMap);

@@ -109,11 +109,19 @@ let hashMap = new Map();
 copiando: for (let i = 0; i < lines.length; i++) {
     if (lines[i] !== "") {
         let splittedLines = lines[i].split("|");
-        hashMap.set(splittedLines[0], splittedLines[1]);
+        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
+        values.push(parseInt(splittedLines[1]));
     }
     else {
         break copiando;
     }
+}
+function computeIfAbsent(map, key, mappingFunction) {
+    if (!map.has(key)) {
+        const newValue = mappingFunction(key);
+        map.set(key, newValue);
+    }
+    return map.get(key);
 }
 console.log(hashMap);
 //# sourceMappingURL=index.js.map
