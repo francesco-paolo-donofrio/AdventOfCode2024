@@ -452,6 +452,7 @@ console.log(totalPartTwo);
 let hashMap: Map<string, number[]> = new Map();
 let updates : string[] = [];
 let invalidUpdates : string[] = [];
+let resultPart1 : number = 0;
 
 
 
@@ -501,11 +502,17 @@ for (let linea = 0; linea < updates.length; linea++) {
                 let failedUpdate : string = splittedUpdates.join(",");
                 invalidUpdates.push(failedUpdate);
                 break;
-
             }
         }
     }
+    if (validUpdate){
+        let number : number = Math.floor(splittedUpdates.length / 2);
+        resultPart1 += parseInt(splittedUpdates[number]);
+    }
 }
 console.log(invalidUpdates);
+console.log(resultPart1);
+// let number : number = 5;
+// console.log(Math.floor(number / 2));
 
 

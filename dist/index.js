@@ -108,6 +108,7 @@ console.log(totalPartTwo);
 let hashMap = new Map();
 let updates = [];
 let invalidUpdates = [];
+let resultPart1 = 0;
 function computeIfAbsent(map, key, mappingFunction) {
     if (!map.has(key)) {
         const newValue = mappingFunction(key);
@@ -133,17 +134,24 @@ console.log(hashMap);
 console.log(updates);
 for (let linea = 0; linea < updates.length; linea++) {
     let splittedUpdates = updates[linea].split(",");
+    let validUpdate = true;
     for (let update = 0; update < splittedUpdates.length; update++) {
         if (update + 1 !== splittedUpdates.length) {
             if (hashMap.has(splittedUpdates[update + 1]) &&
                 hashMap.get(splittedUpdates[update + 1]) !== null &&
                 hashMap.get(splittedUpdates[update + 1]).includes(parseInt(splittedUpdates[update]))) {
-                let failedUpdate = splittedUpdates.join("..");
+                validUpdate = false;
+                let failedUpdate = splittedUpdates.join(",");
                 invalidUpdates.push(failedUpdate);
                 break;
             }
         }
     }
+    if (validUpdate) {
+        let number = Math.floor(splittedUpdates.length / 2);
+        resultPart1 += parseInt(splittedUpdates[number]);
+    }
 }
 console.log(invalidUpdates);
+console.log(resultPart1);
 //# sourceMappingURL=index.js.map
