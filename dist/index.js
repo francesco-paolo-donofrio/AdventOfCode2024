@@ -130,8 +130,6 @@ for (let i = 0; i < lines.length; i++) {
         updates.push(lines[i]);
     }
 }
-console.log(hashMap);
-console.log(updates);
 for (let linea = 0; linea < updates.length; linea++) {
     let splittedUpdates = updates[linea].split(",");
     let validUpdate = true;
@@ -152,6 +150,5 @@ for (let linea = 0; linea < updates.length; linea++) {
         resultPart1 += parseInt(splittedUpdates[number]);
     }
 }
-console.log(invalidUpdates);
 console.log(resultPart1);
 //# sourceMappingURL=index.js.map

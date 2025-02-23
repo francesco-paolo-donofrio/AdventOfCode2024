@@ -482,8 +482,8 @@ for (let i = 0; i < lines.length; i++) {
     }
 }
 
-console.log(hashMap);
-console.log(updates);
+// console.log(hashMap);
+// console.log(updates);
 
 
 
@@ -510,7 +510,7 @@ for (let linea = 0; linea < updates.length; linea++) {
         resultPart1 += parseInt(splittedUpdates[number]);
     }
 }
-console.log(invalidUpdates);
+
 console.log(resultPart1);
 // let number : number = 5;
 // console.log(Math.floor(number / 2));
