@@ -106,16 +106,7 @@ function masControl(arrayBidim, i, j) {
 }
 console.log(totalPartTwo);
 let hashMap = new Map();
-copiando: for (let i = 0; i < lines.length; i++) {
-    if (lines[i] !== "") {
-        let splittedLines = lines[i].split("|");
-        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
-        values.push(parseInt(splittedLines[1]));
-    }
-    else {
-        break copiando;
-    }
-}
+let updates = [];
 function computeIfAbsent(map, key, mappingFunction) {
     if (!map.has(key)) {
         const newValue = mappingFunction(key);
@@ -123,5 +114,24 @@ function computeIfAbsent(map, key, mappingFunction) {
     }
     return map.get(key);
 }
+let flag = false;
+for (let i = 0; i < lines.length; i++) {
+    if (lines[i] !== "" && !lines[i].includes(",")) {
+        let splittedLines = lines[i].split("|");
+        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
+        values.push(parseInt(splittedLines[1]));
+    }
+    else if (lines[i] === "") {
+        flag = true;
+    }
+    else if (flag) {
+        updates.push(lines[i]);
+    }
+}
 console.log(hashMap);
+console.log(updates);
+let variabile = "ciao";
+if (variabile.includes(",")) {
+    console.log("ciao");
+}
 //# sourceMappingURL=index.js.map

@@ -450,23 +450,7 @@ console.log(totalPartTwo);
 // console.log(map.size);
 
 let hashMap: Map<string, number[]> = new Map();
-// let updates : string[] = [];
-
-
-
-copiando:
-for (let i = 0; i < lines.length; i++) {
-    if (lines[i] !== "") {
-        let splittedLines: string[] = lines[i].split("|");
-        // console.log(splittedLines);
-        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
-        values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
-        // hashMap.set(splittedLines[0], splittedLines[1])
-    } else {
-        break copiando;
-    }
-}
-
+let updates : string[] = [];
 
 
 
@@ -478,4 +462,33 @@ function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K)
     return map.get(key)!;
 }
 
+let flag : boolean = false;
+for (let i = 0; i < lines.length; i++) {
+    if (lines[i] !== "" && !lines[i].includes(",")) {
+        let splittedLines: string[] = lines[i].split("|");
+       
+        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
+        values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
+        // hashMap.set(splittedLines[0], splittedLines[1])
+    }
+    else if (lines[i] === ""){
+        flag = true;
+        
+    }
+    else if (flag){
+        updates.push(lines[i]);
+    }
+}
+
 console.log(hashMap);
+console.log(updates);
+
+for (let linea = 0; linea < updates.length; linea++){
+    let splittedUpdates : string[] = updates[linea].split(",");
+    for (let update = 0; update < splittedUpdates.length; update++){
+        
+    }
+} 
+
+
+
