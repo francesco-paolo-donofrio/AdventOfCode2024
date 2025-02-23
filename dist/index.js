@@ -107,6 +107,7 @@ function masControl(arrayBidim, i, j) {
 console.log(totalPartTwo);
 let hashMap = new Map();
 let updates = [];
+let invalidUpdates = [];
 function computeIfAbsent(map, key, mappingFunction) {
     if (!map.has(key)) {
         const newValue = mappingFunction(key);
@@ -130,8 +131,19 @@ for (let i = 0; i < lines.length; i++) {
 }
 console.log(hashMap);
 console.log(updates);
-let variabile = "ciao";
-if (variabile.includes(",")) {
-    console.log("ciao");
+for (let linea = 0; linea < updates.length; linea++) {
+    let splittedUpdates = updates[linea].split(",");
+    for (let update = 0; update < splittedUpdates.length; update++) {
+        if (update + 1 !== splittedUpdates.length) {
+            if (hashMap.has(splittedUpdates[update + 1]) &&
+                hashMap.get(splittedUpdates[update + 1]) !== null &&
+                hashMap.get(splittedUpdates[update + 1]).includes(parseInt(splittedUpdates[update]))) {
+                let failedUpdate = splittedUpdates.join("..");
+                invalidUpdates.push(failedUpdate);
+                break;
+            }
+        }
+    }
 }
+console.log(invalidUpdates);
 //# sourceMappingURL=index.js.map

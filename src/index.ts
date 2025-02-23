@@ -451,6 +451,7 @@ console.log(totalPartTwo);
 
 let hashMap: Map<string, number[]> = new Map();
 let updates : string[] = [];
+let invalidUpdates : string[] = [];
 
 
 
@@ -483,12 +484,28 @@ for (let i = 0; i < lines.length; i++) {
 console.log(hashMap);
 console.log(updates);
 
-for (let linea = 0; linea < updates.length; linea++){
-    let splittedUpdates : string[] = updates[linea].split(",");
-    for (let update = 0; update < splittedUpdates.length; update++){
-        
-    }
-} 
 
+
+for (let linea = 0; linea < updates.length; linea++) {
+    let splittedUpdates: string[] = updates[linea].split(",");
+    let validUpdate : boolean = true;
+    for (let update = 0; update < splittedUpdates.length; update++) {
+        if (update + 1 !== splittedUpdates.length) {
+            if (
+                hashMap.has(splittedUpdates[update + 1]) &&
+                hashMap.get(splittedUpdates[update + 1]) !== null &&
+                hashMap.get(splittedUpdates[update + 1])!.includes(parseInt(splittedUpdates[update]))
+            ) {
+                // Qui dovrebbe esserci il codice da eseguire in caso la condizione sia vera (commento Update non valido)
+                validUpdate = false;
+                let failedUpdate : string = splittedUpdates.join(",");
+                invalidUpdates.push(failedUpdate);
+                break;
+
+            }
+        }
+    }
+}
+console.log(invalidUpdates);
 
 
