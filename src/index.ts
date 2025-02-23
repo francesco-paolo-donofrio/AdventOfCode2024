@@ -299,8 +299,8 @@ for (let i = 0; i < verticalLength; i++) {
             total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
             total += verticalControl(arrayBidim, i, j, verticalLength);
             total += diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength);
-        } else if(arrayBidim[i][j] === 'A') {
-            if (i > 0 && i <= verticalLength - 1 && j >= 1 && j <= orizzontalLength - 1){
+        } else if (arrayBidim[i][j] === 'A') {
+            if (i > 0 && i <= verticalLength - 1 && j >= 1 && j <= orizzontalLength - 1) {
                 totalPartTwo += masControl(arrayBidim, i, j)
             }
         }
@@ -344,10 +344,10 @@ function verticalControl(arrayBidim: string[][], i: number, j: number, verticalL
     return tot;
 }
 
-function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzontalLength: number, verticalLength : number): number {
+function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzontalLength: number, verticalLength: number): number {
     let tot = 0;
     // Controllo da sopra a destra a sotto a sinistra
-    if (j >= 3 && i <= verticalLength - 4){
+    if (j >= 3 && i <= verticalLength - 4) {
         if (arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 2][j - 2] === "A" && arrayBidim[i + 3][j - 3] === "S") {
             tot++;
         }
@@ -355,7 +355,7 @@ function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzonta
 
     // Controllo da sotto a sinistra a sopra a destra
 
-    if (j <= orizzontalLength - 4 && i >= 3){
+    if (j <= orizzontalLength - 4 && i >= 3) {
         if (arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i - 2][j + 2] === "A" && arrayBidim[i - 3][j + 3] === "S") {
             tot++;
         }
@@ -363,7 +363,7 @@ function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzonta
 
     // Controllo da sopra a sinistra a sotto a destra
 
-    if (j <= orizzontalLength - 4 && i <= verticalLength - 4){
+    if (j <= orizzontalLength - 4 && i <= verticalLength - 4) {
         if (arrayBidim[i + 1][j + 1] === "M" && arrayBidim[i + 2][j + 2] === "A" && arrayBidim[i + 3][j + 3] === "S") {
             tot++;
         }
@@ -373,17 +373,17 @@ function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzonta
 
 function masControl(arrayBidim: string[][], i: number, j: number): number {
     let tot = 0;
-    if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j + 1] === "S"){
-        tot ++;
+    if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j + 1] === "S") {
+        tot++;
     }
-    if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j + 1] === "M"){
-        tot ++;
+    if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j + 1] === "M") {
+        tot++;
     }
-    if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i + 1][j + 1] === "S"){
-        tot ++;
+    if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i + 1][j + 1] === "S") {
+        tot++;
     }
-    if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 1][j + 1] === "M"){
-        tot ++;
+    if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 1][j + 1] === "M") {
+        tot++;
     }
     return tot;
 }
@@ -413,7 +413,7 @@ console.log(totalPartTwo);
 
 // let contoAnagramma : number = 0;
 
-    
+
 // for (let i = 0; i < lines.length; i++){
 //     const arrDiControllo : number[] = new Array(26).fill(0);
 //     if (lines[i].length != stringExample.length){
@@ -429,7 +429,62 @@ console.log(totalPartTwo);
 //             contoAnagramma ++;
 //         }
 //     }
-    
+
 // }
 
 // console.log(contoAnagramma);
+
+// Advent n°5
+
+// let map : Map<string, number[]> = new Map();
+
+// map.set("marco", []);
+
+// console.log(map.get("marco"));
+// console.log(map.keys);
+
+// for (let keys of map.keys()){
+//     console.log(keys);
+// }
+
+// console.log(map.size);
+
+let hashMap: Map<string, number[]> = new Map();
+// let updates : string[] = [];
+
+
+
+copiando:
+for (let i = 0; i < lines.length; i++) {
+    if (lines[i] !== "") {
+        let splittedLines: string[] = lines[i].split("|");
+        // console.log(splittedLines);
+        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
+        values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
+        hashMap.set(splittedLines[0], splittedLines[1])
+    } else {
+        break copiando;
+    }
+}
+
+console.log(hashMap);
+
+const myMap = new Map<string, number[]>();
+
+// Aggiungiamo un array vuoto se la chiave non esiste
+
+console.log(myMap.get("numeri")); // Output: [42]
+
+// Aggiungiamo un altro numero alla stessa chiave
+computeIfAbsent(myMap, "numeri", () => []).push(99);
+
+console.log(myMap.get("numeri")); // Output: [42, 99]
+
+
+function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K) => V): V {
+    if (!map.has(key)) {
+        const newValue = mappingFunction(key);
+        map.set(key, newValue);
+    }
+    return map.get(key)!;
+}

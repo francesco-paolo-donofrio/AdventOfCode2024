@@ -105,4 +105,15 @@ function masControl(arrayBidim, i, j) {
     return tot;
 }
 console.log(totalPartTwo);
+let hashMap = new Map();
+copiando: for (let i = 0; i < lines.length; i++) {
+    if (lines[i] !== "") {
+        let splittedLines = lines[i].split("|");
+        hashMap.set(splittedLines[0], splittedLines[1]);
+    }
+    else {
+        break copiando;
+    }
+}
+console.log(hashMap);
 //# sourceMappingURL=index.js.map
