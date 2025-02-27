@@ -49,6 +49,8 @@ for (let i = 0; i < lines.length; i++) {
         updates.push(lines[i]);
     }
 }
+console.log(hashMap);
+console.log(updates);
 for (let linea = 0; linea < updates.length; linea++) {
     let splittedUpdates = updates[linea].split(",");
     let validUpdate = true;
@@ -70,4 +72,48 @@ for (let linea = 0; linea < updates.length; linea++) {
     }
 }
 console.log(resultPart1);
+console.log(invalidUpdates);
+function topologicalSort(orderRules, pages) {
+    let inDegree = new Map();
+    let adjacencyList = new Map();
+    for (let page of pages) {
+        inDegree.set(page, 0);
+        adjacencyList.set(page, []);
+    }
+    for (let [key, values] of orderRules.entries()) {
+        let from = parseInt(key);
+        for (let to of values) {
+            if (pages.includes(from) && pages.includes(to)) {
+                adjacencyList.get(from).push(to);
+                inDegree.set(to, (inDegree.get(to) || 0) + 1);
+            }
+        }
+    }
+    let queue = [];
+    for (let [key, value] of inDegree.entries()) {
+        if (value === 0) {
+            queue.push(key);
+        }
+    }
+    let sortedPages = [];
+    while (queue.length > 0) {
+        let node = queue.shift();
+        sortedPages.push(node);
+        for (let neighbor of adjacencyList.get(node)) {
+            inDegree.set(neighbor, inDegree.get(neighbor) - 1);
+            if (inDegree.get(neighbor) === 0) {
+                queue.push(neighbor);
+            }
+        }
+    }
+    return sortedPages;
+}
+let resultPart2 = 0;
+for (let invalidUpdate of invalidUpdates) {
+    let pages = invalidUpdate.split(",").map(Number);
+    let sortedPages = topologicalSort(hashMap, pages);
+    let middlePage = sortedPages[Math.floor(sortedPages.length / 2)];
+    resultPart2 += middlePage;
+}
+console.log("Result Part 2:", resultPart2);
 //# sourceMappingURL=index.js.map

@@ -483,8 +483,8 @@ for (let i = 0; i < lines.length; i++) {
     }
 }
 
-// console.log(hashMap);
-// console.log(updates);
+console.log(hashMap);
+console.log(updates);
 
 
 
@@ -513,7 +513,64 @@ for (let linea = 0; linea < updates.length; linea++) {
 }
 
 console.log(resultPart1);
+console.log(invalidUpdates);
 // let number : number = 5;
 // console.log(Math.floor(number / 2));
 
 
+
+function topologicalSort(orderRules: Map<string, number[]>, pages: number[]): number[] {
+    let inDegree: Map<number, number> = new Map();
+    let adjacencyList: Map<number, number[]> = new Map();
+
+    // Inizializza i nodi
+    for (let page of pages) {
+        inDegree.set(page, 0);
+        adjacencyList.set(page, []);
+    }
+
+    // Costruzione del grafo
+    for (let [key, values] of orderRules.entries()) {
+        let from = parseInt(key);
+        for (let to of values) {
+            if (pages.includes(from) && pages.includes(to)) {
+                adjacencyList.get(from)!.push(to);
+                inDegree.set(to, (inDegree.get(to) || 0) + 1);
+            }
+        }
+    }
+
+    // Queue per nodi senza dipendenze
+    let queue: number[] = [];
+    for (let [key, value] of inDegree.entries()) {
+        if (value === 0) {
+            queue.push(key);
+        }
+    }
+
+    let sortedPages: number[] = [];
+    while (queue.length > 0) {
+        let node = queue.shift()!;
+        sortedPages.push(node);
+        for (let neighbor of adjacencyList.get(node)!) {
+            inDegree.set(neighbor, inDegree.get(neighbor)! - 1);
+            if (inDegree.get(neighbor) === 0) {
+                queue.push(neighbor);
+            }
+        }
+    }
+
+    return sortedPages;
+}
+
+// Seconda parte - correzione degli aggiornamenti errati
+let resultPart2: number = 0;
+
+for (let invalidUpdate of invalidUpdates) {
+    let pages = invalidUpdate.split(",").map(Number);
+    let sortedPages = topologicalSort(hashMap, pages);
+    let middlePage = sortedPages[Math.floor(sortedPages.length / 2)];
+    resultPart2 += middlePage;
+}
+
+console.log("Result Part 2:", resultPart2);
