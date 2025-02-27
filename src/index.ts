@@ -373,6 +373,7 @@ function diagonalControl(arrayBidim: string[][], i: number, j: number, orizzonta
 
 function masControl(arrayBidim: string[][], i: number, j: number): number {
     let tot = 0;
+    if (i > 0 && j > 0 && i < arrayBidim.length - 1 && j < arrayBidim[i].length - 1) {
     if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j + 1] === "S") {
         tot++;
     }
@@ -385,9 +386,10 @@ function masControl(arrayBidim: string[][], i: number, j: number): number {
     if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 1][j + 1] === "M") {
         tot++;
     }
+    }
     return tot;
 }
-console.log(total);
+console.log(totalPartTwo);
 
 // Esercizio Anagrammi
 
