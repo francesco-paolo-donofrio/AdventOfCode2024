@@ -277,9 +277,9 @@ readFileContent(filePath);
 
 // Advent of code n°4
 let verticalLength: number = lines.length;
-console.log(verticalLength);
+// console.log(verticalLength);
 let orizzontalLength: number = lines[0].length;
-console.log(orizzontalLength);
+// console.log(orizzontalLength);
 let arrayBidim: string[][] = [];
 
 
@@ -288,7 +288,7 @@ for (let str of lines) {
     arrayBidim.push(str.split(""))
 }
 
-console.log(arrayBidim[0]);
+// console.log(arrayBidim[0]);
 
 let total: number = 0;
 let totalPartTwo: number = 0;
@@ -387,7 +387,7 @@ function masControl(arrayBidim: string[][], i: number, j: number): number {
     }
     return tot;
 }
-console.log(totalPartTwo);
+console.log(total);
 
 // Esercizio Anagrammi
 
@@ -449,69 +449,69 @@ console.log(totalPartTwo);
 
 // console.log(map.size);
 
-let hashMap: Map<string, number[]> = new Map();
-let updates : string[] = [];
-let invalidUpdates : string[] = [];
-let resultPart1 : number = 0;
+// let hashMap: Map<string, number[]> = new Map();
+// let updates : string[] = [];
+// let invalidUpdates : string[] = [];
+// let resultPart1 : number = 0;
 
 
 
-function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K) => V): V {
-    if (!map.has(key)) {
-        const newValue = mappingFunction(key);
-        map.set(key, newValue);
-    }
-    return map.get(key)!;
-}
+// function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K) => V): V {
+//     if (!map.has(key)) {
+//         const newValue = mappingFunction(key);
+//         map.set(key, newValue);
+//     }
+//     return map.get(key)!;
+// }
 
-let flag : boolean = false;
-for (let i = 0; i < lines.length; i++) {
-    if (lines[i] !== "" && !lines[i].includes(",")) {
-        let splittedLines: string[] = lines[i].split("|");
+// let flag : boolean = false;
+// for (let i = 0; i < lines.length; i++) {
+//     if (lines[i] !== "" && !lines[i].includes(",")) {
+//         let splittedLines: string[] = lines[i].split("|");
        
-        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
-        values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
-        // hashMap.set(splittedLines[0], splittedLines[1])
-    }
-    else if (lines[i] === ""){
-        flag = true;
+//         const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
+//         values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
+//         // hashMap.set(splittedLines[0], splittedLines[1])
+//     }
+//     else if (lines[i] === ""){
+//         flag = true;
         
-    }
-    else if (flag){
-        updates.push(lines[i]);
-    }
-}
+//     }
+//     else if (flag){
+//         updates.push(lines[i]);
+//     }
+// }
 
-// console.log(hashMap);
-// console.log(updates);
+// // console.log(hashMap);
+// // console.log(updates);
 
 
 
-for (let linea = 0; linea < updates.length; linea++) {
-    let splittedUpdates: string[] = updates[linea].split(",");
-    let validUpdate : boolean = true;
-    for (let update = 0; update < splittedUpdates.length; update++) {
-        if (update + 1 !== splittedUpdates.length) {
-            if (
-                hashMap.has(splittedUpdates[update + 1]) &&
-                hashMap.get(splittedUpdates[update + 1]) !== null &&
-                hashMap.get(splittedUpdates[update + 1])!.includes(parseInt(splittedUpdates[update]))
-            ) {
-                // Qui dovrebbe esserci il codice da eseguire in caso la condizione sia vera (commento Update non valido)
-                validUpdate = false;
-                let failedUpdate : string = splittedUpdates.join(",");
-                invalidUpdates.push(failedUpdate);
-                break;
-            }
-        }
-    }
-    if (validUpdate){
-        let number : number = Math.floor(splittedUpdates.length / 2);
-        resultPart1 += parseInt(splittedUpdates[number]);
-    }
-}
+// for (let linea = 0; linea < updates.length; linea++) {
+//     let splittedUpdates: string[] = updates[linea].split(",");
+//     let validUpdate : boolean = true;
+//     for (let update = 0; update < splittedUpdates.length; update++) {
+//         if (update + 1 !== splittedUpdates.length) {
+//             if (
+//                 hashMap.has(splittedUpdates[update + 1]) &&
+//                 hashMap.get(splittedUpdates[update + 1]) !== null &&
+//                 hashMap.get(splittedUpdates[update + 1])!.includes(parseInt(splittedUpdates[update]))
+//             ) {
+//                 // Qui dovrebbe esserci il codice da eseguire in caso la condizione sia vera (commento Update non valido)
+//                 validUpdate = false;
+//                 let failedUpdate : string = splittedUpdates.join(",");
+//                 invalidUpdates.push(failedUpdate);
+//                 break;
+//             }
+//         }
+//     }
+//     if (validUpdate){
+//         let number : number = Math.floor(splittedUpdates.length / 2);
+//         resultPart1 += parseInt(splittedUpdates[number]);
+//     }
+// }
 
-console.log(resultPart1);
+// console.log(resultPart1);
 // let number : number = 5;
 // console.log(Math.floor(number / 2));
 

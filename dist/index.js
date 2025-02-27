@@ -17,14 +17,11 @@ function readFileContent(filePath) {
 const lines = readFileContent(filePath);
 readFileContent(filePath);
 let verticalLength = lines.length;
-console.log(verticalLength);
 let orizzontalLength = lines[0].length;
-console.log(orizzontalLength);
 let arrayBidim = [];
 for (let str of lines) {
     arrayBidim.push(str.split(""));
 }
-console.log(arrayBidim[0]);
 let total = 0;
 let totalPartTwo = 0;
 for (let i = 0; i < verticalLength; i++) {
@@ -104,51 +101,5 @@ function masControl(arrayBidim, i, j) {
     }
     return tot;
 }
-console.log(totalPartTwo);
-let hashMap = new Map();
-let updates = [];
-let invalidUpdates = [];
-let resultPart1 = 0;
-function computeIfAbsent(map, key, mappingFunction) {
-    if (!map.has(key)) {
-        const newValue = mappingFunction(key);
-        map.set(key, newValue);
-    }
-    return map.get(key);
-}
-let flag = false;
-for (let i = 0; i < lines.length; i++) {
-    if (lines[i] !== "" && !lines[i].includes(",")) {
-        let splittedLines = lines[i].split("|");
-        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
-        values.push(parseInt(splittedLines[1]));
-    }
-    else if (lines[i] === "") {
-        flag = true;
-    }
-    else if (flag) {
-        updates.push(lines[i]);
-    }
-}
-for (let linea = 0; linea < updates.length; linea++) {
-    let splittedUpdates = updates[linea].split(",");
-    let validUpdate = true;
-    for (let update = 0; update < splittedUpdates.length; update++) {
-        if (update + 1 !== splittedUpdates.length) {
-            if (hashMap.has(splittedUpdates[update + 1]) &&
-                hashMap.get(splittedUpdates[update + 1]) !== null &&
-                hashMap.get(splittedUpdates[update + 1]).includes(parseInt(splittedUpdates[update]))) {
-                validUpdate = false;
-                let failedUpdate = splittedUpdates.join(",");
-                invalidUpdates.push(failedUpdate);
-                break;
-            }
-        }
-    }
-    if (validUpdate) {
-        let number = Math.floor(splittedUpdates.length / 2);
-        resultPart1 += parseInt(splittedUpdates[number]);
-    }
-}
-console.log(resultPart1);
+console.log(total);
 //# sourceMappingURL=index.js.map
