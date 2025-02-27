@@ -16,92 +16,58 @@ function readFileContent(filePath) {
 }
 const lines = readFileContent(filePath);
 readFileContent(filePath);
-let verticalLength = lines.length;
-let orizzontalLength = lines[0].length;
-let arrayBidim = [];
-for (let str of lines) {
-    arrayBidim.push(str.split(""));
+let map = new Map();
+map.set("marco", [33, 44, 55]);
+console.log(map.get("marco"));
+console.log(map.keys);
+for (let keys of map.keys()) {
+    console.log(keys);
 }
-let total = 0;
-let totalPartTwo = 0;
-for (let i = 0; i < verticalLength; i++) {
-    for (let j = 0; j < orizzontalLength; j++) {
-        if (arrayBidim[i][j] === 'X') {
-            total += orizzontalControl(arrayBidim, i, j, orizzontalLength);
-            total += verticalControl(arrayBidim, i, j, verticalLength);
-            total += diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength);
-        }
-        else if (arrayBidim[i][j] === 'A') {
-            if (i > 0 && i <= verticalLength - 1 && j >= 1 && j <= orizzontalLength - 1) {
-                totalPartTwo += masControl(arrayBidim, i, j);
+console.log(map.size);
+let hashMap = new Map();
+let updates = [];
+let invalidUpdates = [];
+let resultPart1 = 0;
+function computeIfAbsent(map, key, mappingFunction) {
+    if (!map.has(key)) {
+        const newValue = mappingFunction(key);
+        map.set(key, newValue);
+    }
+    return map.get(key);
+}
+let flag = false;
+for (let i = 0; i < lines.length; i++) {
+    if (lines[i] !== "" && !lines[i].includes(",")) {
+        let splittedLines = lines[i].split("|");
+        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
+        values.push(parseInt(splittedLines[1]));
+    }
+    else if (lines[i] === "") {
+        flag = true;
+    }
+    else if (flag) {
+        updates.push(lines[i]);
+    }
+}
+for (let linea = 0; linea < updates.length; linea++) {
+    let splittedUpdates = updates[linea].split(",");
+    let validUpdate = true;
+    for (let update = 0; update < splittedUpdates.length; update++) {
+        if (update + 1 !== splittedUpdates.length) {
+            if (hashMap.has(splittedUpdates[update + 1]) &&
+                hashMap.get(splittedUpdates[update + 1]) !== null &&
+                hashMap.get(splittedUpdates[update + 1]).includes(parseInt(splittedUpdates[update]))) {
+                validUpdate = false;
+                let failedUpdate = splittedUpdates.join(",");
+                invalidUpdates.push(failedUpdate);
+                break;
             }
         }
     }
+    if (validUpdate) {
+        let number = Math.floor(splittedUpdates.length / 2);
+        resultPart1 += parseInt(splittedUpdates[number]);
+    }
 }
-function orizzontalControl(arrayBidim, i, j, orizzontalLength) {
-    let tot = 0;
-    if (j >= 3) {
-        if (arrayBidim[i][j - 1] === "M" && arrayBidim[i][j - 2] === "A" && arrayBidim[i][j - 3] === "S") {
-            tot++;
-        }
-    }
-    if (j <= orizzontalLength - 4) {
-        if (arrayBidim[i][j + 1] === "M" && arrayBidim[i][j + 2] === "A" && arrayBidim[i][j + 3] === "S") {
-            tot++;
-        }
-    }
-    return tot;
-}
-function verticalControl(arrayBidim, i, j, verticalLength) {
-    let tot = 0;
-    if (i <= verticalLength - 4) {
-        if (arrayBidim[i + 1][j] === "M" && arrayBidim[i + 2][j] === "A" && arrayBidim[i + 3][j] === "S") {
-            tot++;
-        }
-    }
-    if (i >= 3) {
-        if (arrayBidim[i - 1][j] === "M" && arrayBidim[i - 2][j] === "A" && arrayBidim[i - 3][j] === "S") {
-            tot++;
-        }
-    }
-    return tot;
-}
-function diagonalControl(arrayBidim, i, j, orizzontalLength, verticalLength) {
-    let tot = 0;
-    if (j >= 3 && i <= verticalLength - 4) {
-        if (arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 2][j - 2] === "A" && arrayBidim[i + 3][j - 3] === "S") {
-            tot++;
-        }
-    }
-    if (j <= orizzontalLength - 4 && i >= 3) {
-        if (arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i - 2][j + 2] === "A" && arrayBidim[i - 3][j + 3] === "S") {
-            tot++;
-        }
-    }
-    if (j <= orizzontalLength - 4 && i <= verticalLength - 4) {
-        if (arrayBidim[i + 1][j + 1] === "M" && arrayBidim[i + 2][j + 2] === "A" && arrayBidim[i + 3][j + 3] === "S") {
-            tot++;
-        }
-    }
-    return tot;
-}
-function masControl(arrayBidim, i, j) {
-    let tot = 0;
-    if (i > 0 && j > 0 && i < arrayBidim.length - 1 && j < arrayBidim[i].length - 1) {
-        if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j + 1] === "S") {
-            tot++;
-        }
-        if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j + 1] === "M") {
-            tot++;
-        }
-        if (arrayBidim[i - 1][j - 1] === "M" && arrayBidim[i - 1][j + 1] === "M" && arrayBidim[i + 1][j - 1] === "S" && arrayBidim[i + 1][j + 1] === "S") {
-            tot++;
-        }
-        if (arrayBidim[i - 1][j - 1] === "S" && arrayBidim[i - 1][j + 1] === "S" && arrayBidim[i + 1][j - 1] === "M" && arrayBidim[i + 1][j + 1] === "M") {
-            tot++;
-        }
-    }
-    return tot;
-}
-console.log(totalPartTwo);
+console.log(resultPart1);
 //# sourceMappingURL=index.js.map
