@@ -438,139 +438,153 @@ readFileContent(filePath);
 
 // Advent n°5
 
-let map : Map<string, number[]> = new Map();
+// let map : Map<string, number[]> = new Map();
 
-map.set("marco", [33, 44, 55]);
+// map.set("marco", [33, 44, 55]);
 
-console.log(map.get("marco"));
-console.log(map.keys);
+// console.log(map.get("marco"));
+// console.log(map.keys);
 
-for (let keys of map.keys()){
-    console.log(keys);
-}
+// for (let keys of map.keys()){
+//     console.log(keys);
+// }
 
-console.log(map.size);
+// console.log(map.size);
 
-let hashMap: Map<string, number[]> = new Map();
-let updates : string[] = [];
-let invalidUpdates : string[] = [];
-let resultPart1 : number = 0;
+// let hashMap: Map<string, number[]> = new Map();
+// let updates : string[] = [];
+// let invalidUpdates : string[] = [];
+// let resultPart1 : number = 0;
 
 
 
-function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K) => V): V {
-    if (!map.has(key)) {
-        const newValue = mappingFunction(key);
-        map.set(key, newValue);
-    }
-    return map.get(key)!;
-}
+// function computeIfAbsent<K, V>(map: Map<K, V>, key: K, mappingFunction: (key: K) => V): V {
+//     if (!map.has(key)) {
+//         const newValue = mappingFunction(key);
+//         map.set(key, newValue);
+//     }
+//     return map.get(key)!;
+// }
 
-let flag : boolean = false;
-for (let i = 0; i < lines.length; i++) {
-    if (lines[i] !== "" && !lines[i].includes(",")) {
-        let splittedLines: string[] = lines[i].split("|");
+// let flag : boolean = false;
+// for (let i = 0; i < lines.length; i++) {
+//     if (lines[i] !== "" && !lines[i].includes(",")) {
+//         let splittedLines: string[] = lines[i].split("|");
        
-        const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
-        values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
-        // hashMap.set(splittedLines[0], splittedLines[1])
-    }
-    else if (lines[i] === ""){
-        flag = true;
-    }
-    else if (flag){
-        updates.push(lines[i]);
+//         const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
+//         values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
+//         // hashMap.set(splittedLines[0], splittedLines[1])
+//     }
+//     else if (lines[i] === ""){
+//         flag = true;
+//     }
+//     else if (flag){
+//         updates.push(lines[i]);
+//     }
+// }
+
+// console.log(hashMap);
+// console.log(updates);
+
+
+
+// for (let linea = 0; linea < updates.length; linea++) {
+//     let splittedUpdates: string[] = updates[linea].split(",");
+//     let validUpdate : boolean = true;
+//     for (let update = 0; update < splittedUpdates.length; update++) {
+//         if (update + 1 !== splittedUpdates.length) {
+//             if (
+//                 hashMap.has(splittedUpdates[update + 1]) &&
+//                 hashMap.get(splittedUpdates[update + 1]) !== null &&
+//                 hashMap.get(splittedUpdates[update + 1])!.includes(parseInt(splittedUpdates[update]))
+//             ) {
+//                 // Qui dovrebbe esserci il codice da eseguire in caso la condizione sia vera (commento Update non valido)
+//                 validUpdate = false;
+//                 let failedUpdate : string = splittedUpdates.join(",");
+//                 invalidUpdates.push(failedUpdate);
+//                 break;
+//             }
+//         }
+//     }
+//     if (validUpdate){
+//         let number : number = Math.floor(splittedUpdates.length / 2);
+//         resultPart1 += parseInt(splittedUpdates[number]);
+//     }
+// }
+
+// console.log(resultPart1);
+// console.log(invalidUpdates);
+// // let number : number = 5;
+// // console.log(Math.floor(number / 2));
+
+
+
+// function topologicalSort(orderRules: Map<string, number[]>, pages: number[]): number[] {
+//     let inDegree: Map<number, number> = new Map();
+//     let adjacencyList: Map<number, number[]> = new Map();
+
+//     // Inizializza i nodi
+//     for (let page of pages) {
+//         inDegree.set(page, 0);
+//         adjacencyList.set(page, []);
+//     }
+
+//     // Costruzione del grafo
+//     for (let [key, values] of orderRules.entries()) {
+//         let from = parseInt(key);
+//         for (let to of values) {
+//             if (pages.includes(from) && pages.includes(to)) {
+//                 adjacencyList.get(from)!.push(to);
+//                 inDegree.set(to, (inDegree.get(to) || 0) + 1);
+//             }
+//         }
+//     }
+
+//     // Queue per nodi senza dipendenze
+//     let queue: number[] = [];
+//     for (let [key, value] of inDegree.entries()) {
+//         if (value === 0) {
+//             queue.push(key);
+//         }
+//     }
+
+//     let sortedPages: number[] = [];
+//     while (queue.length > 0) {
+//         let node = queue.shift()!;
+//         sortedPages.push(node);
+//         for (let neighbor of adjacencyList.get(node)!) {
+//             inDegree.set(neighbor, inDegree.get(neighbor)! - 1);
+//             if (inDegree.get(neighbor) === 0) {
+//                 queue.push(neighbor);
+//             }
+//         }
+//     }
+
+//     return sortedPages;
+// }
+
+// // Seconda parte - correzione degli aggiornamenti errati
+// let resultPart2: number = 0;
+
+// for (let invalidUpdate of invalidUpdates) {
+//     let pages = invalidUpdate.split(",").map(Number);
+//     let sortedPages = topologicalSort(hashMap, pages);
+//     let middlePage = sortedPages[Math.floor(sortedPages.length / 2)];
+//     resultPart2 += middlePage;
+// }
+
+// console.log("Result Part 2:", resultPart2);
+
+// Advent n° 6
+
+let map : string[][] = [];
+
+for (let i = 0; i < lines.length; i++){
+    for (let j = 0; j < lines[0].length; j++){
+        map[i][j] = lines[i].charAt(j);
     }
 }
+console.log(map);
 
-console.log(hashMap);
-console.log(updates);
-
-
-
-for (let linea = 0; linea < updates.length; linea++) {
-    let splittedUpdates: string[] = updates[linea].split(",");
-    let validUpdate : boolean = true;
-    for (let update = 0; update < splittedUpdates.length; update++) {
-        if (update + 1 !== splittedUpdates.length) {
-            if (
-                hashMap.has(splittedUpdates[update + 1]) &&
-                hashMap.get(splittedUpdates[update + 1]) !== null &&
-                hashMap.get(splittedUpdates[update + 1])!.includes(parseInt(splittedUpdates[update]))
-            ) {
-                // Qui dovrebbe esserci il codice da eseguire in caso la condizione sia vera (commento Update non valido)
-                validUpdate = false;
-                let failedUpdate : string = splittedUpdates.join(",");
-                invalidUpdates.push(failedUpdate);
-                break;
-            }
-        }
-    }
-    if (validUpdate){
-        let number : number = Math.floor(splittedUpdates.length / 2);
-        resultPart1 += parseInt(splittedUpdates[number]);
-    }
-}
-
-console.log(resultPart1);
-console.log(invalidUpdates);
-// let number : number = 5;
-// console.log(Math.floor(number / 2));
-
-
-
-function topologicalSort(orderRules: Map<string, number[]>, pages: number[]): number[] {
-    let inDegree: Map<number, number> = new Map();
-    let adjacencyList: Map<number, number[]> = new Map();
-
-    // Inizializza i nodi
-    for (let page of pages) {
-        inDegree.set(page, 0);
-        adjacencyList.set(page, []);
-    }
-
-    // Costruzione del grafo
-    for (let [key, values] of orderRules.entries()) {
-        let from = parseInt(key);
-        for (let to of values) {
-            if (pages.includes(from) && pages.includes(to)) {
-                adjacencyList.get(from)!.push(to);
-                inDegree.set(to, (inDegree.get(to) || 0) + 1);
-            }
-        }
-    }
-
-    // Queue per nodi senza dipendenze
-    let queue: number[] = [];
-    for (let [key, value] of inDegree.entries()) {
-        if (value === 0) {
-            queue.push(key);
-        }
-    }
-
-    let sortedPages: number[] = [];
-    while (queue.length > 0) {
-        let node = queue.shift()!;
-        sortedPages.push(node);
-        for (let neighbor of adjacencyList.get(node)!) {
-            inDegree.set(neighbor, inDegree.get(neighbor)! - 1);
-            if (inDegree.get(neighbor) === 0) {
-                queue.push(neighbor);
-            }
-        }
-    }
-
-    return sortedPages;
-}
-
-// Seconda parte - correzione degli aggiornamenti errati
-let resultPart2: number = 0;
-
-for (let invalidUpdate of invalidUpdates) {
-    let pages = invalidUpdate.split(",").map(Number);
-    let sortedPages = topologicalSort(hashMap, pages);
-    let middlePage = sortedPages[Math.floor(sortedPages.length / 2)];
-    resultPart2 += middlePage;
-}
-
-console.log("Result Part 2:", resultPart2);
+let arr : string[] = [];
+arr.push("s");
