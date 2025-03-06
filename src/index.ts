@@ -576,30 +576,39 @@ readFileContent(filePath);
 // console.log("Result Part 2:", resultPart2);
 
 // Advent n° 6
-function prova(){
+function prova() {
 
     let map: string[][] = [];
-    
+
     for (let str of lines) {
         map.push(str.split(""))
     }
-    
+
     let verticalLength: number = map.length;
     let orizzontalLength: number = map[0].length;
     stampaMappa(map, verticalLength, orizzontalLength);
-    
-    
-    let guard : string = "^";
-    
-    while (isAlive(map, verticalLength, orizzontalLength)){
-    
-        if(guard === "^"){
+
+
+    let guard: string = "^";
+    while (isAlive(map, verticalLength, orizzontalLength)) {
+        
+        if (guard === "^") {
             upMovement(map, verticalLength, orizzontalLength);
-    
         }
+        if (guard === ">") {
+            rightMovement(map, verticalLength, orizzontalLength);
+        }
+        if (guard === "v") {
+            downMovement(map, verticalLength, orizzontalLength);
+        }
+        if (guard === "<") {
+            leftMovement(map, verticalLength, orizzontalLength);
+        }
+
+        guard = rotation(map, verticalLength, orizzontalLength);
         process.stdout.write("\n");
         stampaMappa(map, verticalLength, orizzontalLength);
-        break;
+    
     }
 }
 
@@ -624,9 +633,9 @@ function getPosition(map: string[][], verticalLength: number, orizzontalLength: 
                 case ">":
                 case "v":
                 case "<":
-                currentPosition.push(i);
-                currentPosition.push(j);
-                break searching;
+                    currentPosition.push(i);
+                    currentPosition.push(j);
+                    break searching;
             }
         }
     }
@@ -641,34 +650,93 @@ function isAlive(map: string[][], verticalLength: number, orizzontalLength: numb
                 case ">":
                 case "v":
                 case "<":
-                return true;
+                    return true;
             }
         }
     }
     return false;
 }
 
-function rotation(map: string[][], verticalLength: number, orizzontalLength: number, currentPosition : number[]): void{
-    switch(map[currentPosition[0]][currentPosition[1]]){
-        case "^" : map[currentPosition[0]][currentPosition[1]] = ">"; break;
-        case ">" : map[currentPosition[0]][currentPosition[1]] = "v"; break;
-        case "v" : map[currentPosition[0]][currentPosition[1]] = "<"; break;
-        case "<" : map[currentPosition[0]][currentPosition[1]] = "^"; break;
-    }
+function rotation(map: string[][], verticalLength: number, orizzontalLength: number): string {
+    let currentPosition: number[] = getPosition(map, verticalLength, orizzontalLength);
+    let guard = "";
+    if(map[currentPosition[0]][currentPosition[1]] === "^"){
+        guard = ">";
+    } else if (map[currentPosition[0]][currentPosition[1]] === ">"){
+        guard = "v"
+    } else if (map[currentPosition[0]][currentPosition[1]] === "v"){
+        guard = "<"
+    } else if (map[currentPosition[0]][currentPosition[1]] === "<"){
+        guard = "^"
+    };
+
+    return guard;
 }
 
 function upMovement(map: string[][], verticalLength: number, orizzontalLength: number): void {
-    let currentPosition : number[] = getPosition(map, verticalLength, orizzontalLength);
-    for(let i = currentPosition[0]; i >= 0; i--){
-        if(i === 0){
+    let currentPosition: number[] = getPosition(map, verticalLength, orizzontalLength);
+    for (let i = currentPosition[0]; i >= 0; i--) {
+        if (i === 0) {
+            map[i][currentPosition[1]] = "X";
+            break;
 
+        
+        }
+        if (map[i - 1][currentPosition[1]] === "#") {
+            break;
+        } else {
+            map[i][currentPosition[1]] = "X";
+            map[i - 1][currentPosition[1]] = "^";
+        }
+    }
+}
+
+function rightMovement(map: string[][], verticalLength: number, orizzontalLength: number): void {
+    let currentPosition: number[] = getPosition(map, verticalLength, orizzontalLength);
+    for (let j = currentPosition[1]; j < orizzontalLength; j++) {
+        if (j === orizzontalLength - 1) {
+            map[currentPosition[0]][j] = "X";
             break;
         }
-        if(map[i - 1][currentPosition[1]] === "#"){
+        if (map[currentPosition[0]][j + 1] === "#") {
             break;
-        }else{
+        } else {
+            map[currentPosition[0]][j] = "X";
+            map[currentPosition[0]][j + 1] = ">";
+        }
+    }
+}
+
+function downMovement(map: string[][], verticalLength: number, orizzontalLength: number): void {
+    let currentPosition: number[] = getPosition(map, verticalLength, orizzontalLength);
+    for (let i = currentPosition[0]; i < verticalLength; i++) {
+        if (i === verticalLength - 1) {
             map[i][currentPosition[1]] = "X";
-            map[i - 1][currentPosition[1]] ="^";
+            break;
+
+        
+        }
+        if (map[i + 1][currentPosition[1]] === "#") {
+            break;
+        } else {
+            map[i][currentPosition[1]] = "X";
+            map[i + 1][currentPosition[1]] = "v";
+        }
+    }
+}
+
+function leftMovement(map: string[][], verticalLength: number, orizzontalLength: number): void {
+    let currentPosition: number[] = getPosition(map, verticalLength, orizzontalLength);
+    for (let j = currentPosition[1]; j >= 0; j--) {
+        if (j === 0) {
+            map[currentPosition[0]][j] = "X";
+            break;
+        }
+        if (map[currentPosition[0]][j - 1] === "#") {
+            break;
+        } else {
+            map[currentPosition[0]][j] = "X";
+            map[currentPosition[0]][j - 1] = "<";
         }
     }
 }

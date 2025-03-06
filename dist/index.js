@@ -29,9 +29,18 @@ function prova() {
         if (guard === "^") {
             upMovement(map, verticalLength, orizzontalLength);
         }
+        if (guard === ">") {
+            rightMovement(map, verticalLength, orizzontalLength);
+        }
+        if (guard === "v") {
+            downMovement(map, verticalLength, orizzontalLength);
+        }
+        if (guard === "<") {
+            leftMovement(map, verticalLength, orizzontalLength);
+        }
+        guard = rotation(map, verticalLength, orizzontalLength);
         process.stdout.write("\n");
         stampaMappa(map, verticalLength, orizzontalLength);
-        break;
     }
 }
 console.log(prova());
@@ -74,10 +83,29 @@ function isAlive(map, verticalLength, orizzontalLength) {
     }
     return false;
 }
+function rotation(map, verticalLength, orizzontalLength) {
+    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
+    let guard = "";
+    if (map[currentPosition[0]][currentPosition[1]] === "^") {
+        guard = ">";
+    }
+    else if (map[currentPosition[0]][currentPosition[1]] === ">") {
+        guard = "v";
+    }
+    else if (map[currentPosition[0]][currentPosition[1]] === "v") {
+        guard = "<";
+    }
+    else if (map[currentPosition[0]][currentPosition[1]] === "<") {
+        guard = "^";
+    }
+    ;
+    return guard;
+}
 function upMovement(map, verticalLength, orizzontalLength) {
     let currentPosition = getPosition(map, verticalLength, orizzontalLength);
     for (let i = currentPosition[0]; i >= 0; i--) {
         if (i === 0) {
+            map[i][currentPosition[1]] = "X";
             break;
         }
         if (map[i - 1][currentPosition[1]] === "#") {
@@ -86,6 +114,54 @@ function upMovement(map, verticalLength, orizzontalLength) {
         else {
             map[i][currentPosition[1]] = "X";
             map[i - 1][currentPosition[1]] = "^";
+        }
+    }
+}
+function rightMovement(map, verticalLength, orizzontalLength) {
+    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
+    for (let j = currentPosition[1]; j < orizzontalLength; j++) {
+        if (j === orizzontalLength - 1) {
+            map[currentPosition[0]][j] = "X";
+            break;
+        }
+        if (map[currentPosition[0]][j + 1] === "#") {
+            break;
+        }
+        else {
+            map[currentPosition[0]][j] = "X";
+            map[currentPosition[0]][j + 1] = ">";
+        }
+    }
+}
+function downMovement(map, verticalLength, orizzontalLength) {
+    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
+    for (let i = currentPosition[0]; i < verticalLength; i++) {
+        if (i === verticalLength - 1) {
+            map[i][currentPosition[1]] = "X";
+            break;
+        }
+        if (map[i + 1][currentPosition[1]] === "#") {
+            break;
+        }
+        else {
+            map[i][currentPosition[1]] = "X";
+            map[i + 1][currentPosition[1]] = "v";
+        }
+    }
+}
+function leftMovement(map, verticalLength, orizzontalLength) {
+    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
+    for (let j = currentPosition[1]; j >= 0; j--) {
+        if (j === 0) {
+            map[currentPosition[0]][j] = "X";
+            break;
+        }
+        if (map[currentPosition[0]][j - 1] === "#") {
+            break;
+        }
+        else {
+            map[currentPosition[0]][j] = "X";
+            map[currentPosition[0]][j - 1] = "<";
         }
     }
 }
