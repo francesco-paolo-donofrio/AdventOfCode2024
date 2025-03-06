@@ -470,7 +470,7 @@ readFileContent(filePath);
 // for (let i = 0; i < lines.length; i++) {
 //     if (lines[i] !== "" && !lines[i].includes(",")) {
 //         let splittedLines: string[] = lines[i].split("|");
-       
+
 //         const values = computeIfAbsent(hashMap, splittedLines[0], () => []);
 //         values.push(parseInt(splittedLines[1])); // Ora l'array contiene [42]
 //         // hashMap.set(splittedLines[0], splittedLines[1])
@@ -576,15 +576,99 @@ readFileContent(filePath);
 // console.log("Result Part 2:", resultPart2);
 
 // Advent n° 6
+function prova(){
 
-let map : string[][] = [];
-
-for (let i = 0; i < lines.length; i++){
-    for (let j = 0; j < lines[0].length; j++){
-        map[i][j] = lines[i].charAt(j);
+    let map: string[][] = [];
+    
+    for (let str of lines) {
+        map.push(str.split(""))
+    }
+    
+    let verticalLength: number = map.length;
+    let orizzontalLength: number = map[0].length;
+    stampaMappa(map, verticalLength, orizzontalLength);
+    
+    
+    let guard : string = "^";
+    
+    while (isAlive(map, verticalLength, orizzontalLength)){
+    
+        if(guard === "^"){
+            upMovement(map, verticalLength, orizzontalLength);
+    
+        }
+        process.stdout.write("\n");
+        stampaMappa(map, verticalLength, orizzontalLength);
+        break;
     }
 }
-console.log(map);
 
-let arr : string[] = [];
-arr.push("s");
+console.log(prova())
+
+function stampaMappa(map: string[][], verticalLength: number, orizzontalLength: number): void {
+    for (let i = 0; i < verticalLength; i++) {
+        for (let j = 0; j < orizzontalLength; j++) {
+            process.stdout.write(map[i][j] + " ");
+        }
+        process.stdout.write("\n");
+    }
+}
+
+function getPosition(map: string[][], verticalLength: number, orizzontalLength: number): number[] {
+    let currentPosition: number[] = [];
+    searching:
+    for (let i = 0; i < verticalLength; i++) {
+        for (let j = 0; j < orizzontalLength; j++) {
+            switch (map[i][j]) {
+                case "^":
+                case ">":
+                case "v":
+                case "<":
+                currentPosition.push(i);
+                currentPosition.push(j);
+                break searching;
+            }
+        }
+    }
+    return currentPosition;
+}
+
+function isAlive(map: string[][], verticalLength: number, orizzontalLength: number): boolean {
+    for (let i = 0; i < verticalLength; i++) {
+        for (let j = 0; j < orizzontalLength; j++) {
+            switch (map[i][j]) {
+                case "^":
+                case ">":
+                case "v":
+                case "<":
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function rotation(map: string[][], verticalLength: number, orizzontalLength: number, currentPosition : number[]): void{
+    switch(map[currentPosition[0]][currentPosition[1]]){
+        case "^" : map[currentPosition[0]][currentPosition[1]] = ">"; break;
+        case ">" : map[currentPosition[0]][currentPosition[1]] = "v"; break;
+        case "v" : map[currentPosition[0]][currentPosition[1]] = "<"; break;
+        case "<" : map[currentPosition[0]][currentPosition[1]] = "^"; break;
+    }
+}
+
+function upMovement(map: string[][], verticalLength: number, orizzontalLength: number): void {
+    let currentPosition : number[] = getPosition(map, verticalLength, orizzontalLength);
+    for(let i = currentPosition[0]; i >= 0; i--){
+        if(i === 0){
+
+            break;
+        }
+        if(map[i - 1][currentPosition[1]] === "#"){
+            break;
+        }else{
+            map[i][currentPosition[1]] = "X";
+            map[i - 1][currentPosition[1]] ="^";
+        }
+    }
+}
