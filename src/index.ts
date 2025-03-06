@@ -589,8 +589,11 @@ function prova() {
     stampaMappa(map, verticalLength, orizzontalLength);
 
 
+
+    let i = 0;
     let guard: string = "^";
     while (isAlive(map, verticalLength, orizzontalLength)) {
+        i++;
         
         if (guard === "^") {
             upMovement(map, verticalLength, orizzontalLength);
@@ -606,7 +609,11 @@ function prova() {
         }
 
         guard = rotation(map, verticalLength, orizzontalLength);
+        if(i == 11){
+            process.stdout.write("ROTAZIONE GUARDIA: " + guard);
+        }
         process.stdout.write("\n");
+        process.stdout.write("Movimento numero: " + (i));
         stampaMappa(map, verticalLength, orizzontalLength);
     
     }
