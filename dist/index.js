@@ -118,8 +118,8 @@ function upMovement(map, verticalLength, orizzontalLength) {
             break;
         }
         else {
-            map[i][currentPosition[1]] = "X";
             map[i - 1][currentPosition[1]] = "^";
+            map[i][currentPosition[1]] = "X";
         }
     }
 }

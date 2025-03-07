@@ -692,8 +692,8 @@ function upMovement(map: string[][], verticalLength: number, orizzontalLength: n
         if (map[i - 1][currentPosition[1]] === "#") {
             break;
         } else {
-            map[i][currentPosition[1]] = "X";
             map[i - 1][currentPosition[1]] = "^";
+            map[i][currentPosition[1]] = "X";
         }
     }
 }
