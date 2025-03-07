@@ -40,7 +40,9 @@ function prova() {
         if (guard === "<") {
             leftMovement(map, verticalLength, orizzontalLength);
         }
+        let pos = getPosition(map, verticalLength, orizzontalLength);
         guard = rotation(map, verticalLength, orizzontalLength);
+        map[pos[0]][pos[1]] = guard;
         if (i == 11) {
             process.stdout.write("ROTAZIONE GUARDIA: " + guard);
         }
@@ -118,8 +120,8 @@ function upMovement(map, verticalLength, orizzontalLength) {
             break;
         }
         else {
-            map[i - 1][currentPosition[1]] = "^";
             map[i][currentPosition[1]] = "X";
+            map[i - 1][currentPosition[1]] = "^";
         }
     }
 }
