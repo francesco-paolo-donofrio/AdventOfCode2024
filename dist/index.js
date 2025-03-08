@@ -43,7 +43,7 @@ function prova() {
         let pos = getPosition(map, verticalLength, orizzontalLength);
         guard = rotation(map, verticalLength, orizzontalLength);
         map[pos[0]][pos[1]] = guard;
-        if (i == 11) {
+        if (i === 11) {
             process.stdout.write("ROTAZIONE GUARDIA: " + guard);
         }
         process.stdout.write("\n");
@@ -71,11 +71,12 @@ function getPosition(map, verticalLength, orizzontalLength) {
                 case "<":
                     currentPosition.push(i);
                     currentPosition.push(j);
+                    return currentPosition;
                     break searching;
             }
         }
     }
-    return currentPosition;
+    return [-1, -1];
 }
 function isAlive(map, verticalLength, orizzontalLength) {
     for (let i = 0; i < verticalLength; i++) {

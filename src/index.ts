@@ -592,6 +592,7 @@ function prova() {
 
     let i = 0;
     let guard: string = "^";
+    
     while (isAlive(map, verticalLength, orizzontalLength)) {
         i++;
         
@@ -611,17 +612,18 @@ function prova() {
         guard = rotation(map, verticalLength, orizzontalLength);
         map[pos[0]][pos[1]] = guard;
 
-        if(i == 11){
+        if(i === 11){
             process.stdout.write("ROTAZIONE GUARDIA: " + guard);
         }
         process.stdout.write("\n");
         process.stdout.write("Movimento numero: " + (i));
         stampaMappa(map, verticalLength, orizzontalLength);
-    
-    }
+
+    } 
 }
 
-console.log(prova())
+
+console.log(prova());
 
 function stampaMappa(map: string[][], verticalLength: number, orizzontalLength: number): void {
     for (let i = 0; i < verticalLength; i++) {
@@ -644,11 +646,12 @@ function getPosition(map: string[][], verticalLength: number, orizzontalLength: 
                 case "<":
                     currentPosition.push(i);
                     currentPosition.push(j);
+                    return currentPosition;
                     break searching;
             }
         }
     }
-    return currentPosition;
+    return [-1, -1];
 }
 
 function isAlive(map: string[][], verticalLength: number, orizzontalLength: number): boolean {
@@ -749,3 +752,4 @@ function leftMovement(map: string[][], verticalLength: number, orizzontalLength:
         }
     }
 }
+
