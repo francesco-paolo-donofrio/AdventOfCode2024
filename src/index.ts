@@ -760,6 +760,7 @@ function prova(lines: string[]) {
 
     let i = 0;
     let guard = "^";
+
     
     while (isAlive(map)) {
         i++;
@@ -778,6 +779,7 @@ function prova(lines: string[]) {
             visitedCount++;
             console.log("Movimento numero:", i);
             stampaMappa(map);
+            console.log("Posizioni visitate:", visitedCount);
             break;
         }
         
@@ -785,12 +787,25 @@ function prova(lines: string[]) {
         
         if (i === 11) console.log("ROTAZIONE GUARDIA:", guard);
         console.log("Movimento numero:", i);
-        console.log("Posizioni visitate:", visitedCount);
         stampaMappa(map);
     } 
+
+    let countedX = XCount(map);
+    console.log("Posizioni visitate:", countedX);
 }
 
-console.log(visitedCount);
+
+
+
+function XCount(map: string[][]): number {
+    let visitedCount = 0;
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+            if (map[i][j] === "X") visitedCount++;
+        }
+    }
+    return visitedCount;
+}
 
 function stampaMappa(map: string[][]): void {
     console.log(map.map(row => row.join(" ")).join("\n"));

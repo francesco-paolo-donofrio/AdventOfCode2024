@@ -39,17 +39,28 @@ function prova(lines) {
             map[prevPos[0]][prevPos[1]] = "X";
             visitedCount++;
             console.log("Movimento numero:", i);
-            console.log("Posizioni visitate:", visitedCount);
             stampaMappa(map);
+            console.log("Posizioni visitate:", visitedCount);
             break;
         }
         map[pos[0]][pos[1]] = guard;
         if (i === 11)
             console.log("ROTAZIONE GUARDIA:", guard);
         console.log("Movimento numero:", i);
-        console.log("Posizioni visitate:", visitedCount);
         stampaMappa(map);
     }
+    let countedX = XCount(map);
+    console.log("Posizioni visitate:", countedX);
+}
+function XCount(map) {
+    let visitedCount = 0;
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+            if (map[i][j] === "X")
+                visitedCount++;
+        }
+    }
+    return visitedCount;
 }
 function stampaMappa(map) {
     console.log(map.map(row => row.join(" ")).join("\n"));
