@@ -752,9 +752,10 @@ readFileContent(filePath);
 //     }
 // }
 
+
 function prova(lines: string[]) {
     let map: string[][] = lines.map(str => str.split(""));
-    
+    let visitedCount = 0; 
     stampaMappa(map);
 
     let i = 0;
@@ -764,16 +765,17 @@ function prova(lines: string[]) {
         i++;
         let prevPos = getPosition(map);
         
-        if (guard === "^") upMovement(map);
-        if (guard === ">") rightMovement(map);
-        if (guard === "v") downMovement(map);
-        if (guard === "<") leftMovement(map);
+        if (guard === "^") upMovement(map, visitedCount);
+        if (guard === ">") rightMovement(map, visitedCount);
+        if (guard === "v") downMovement(map, visitedCount);
+        if (guard === "<") leftMovement(map, visitedCount);
 
         let pos = getPosition(map);
         guard = rotation(map);
         
         if (pos[0] === -1 || pos[1] === -1) {
             map[prevPos[0]][prevPos[1]] = "X"; // Mark last position before exiting
+            visitedCount++;
             console.log("Movimento numero:", i);
             stampaMappa(map);
             break;
@@ -783,9 +785,12 @@ function prova(lines: string[]) {
         
         if (i === 11) console.log("ROTAZIONE GUARDIA:", guard);
         console.log("Movimento numero:", i);
+        console.log("Posizioni visitate:", visitedCount);
         stampaMappa(map);
     } 
 }
+
+console.log(visitedCount);
 
 function stampaMappa(map: string[][]): void {
     console.log(map.map(row => row.join(" ")).join("\n"));
@@ -810,24 +815,26 @@ function rotation(map: string[][]): string {
     return r !== -1 && c !== -1 ? rotations[map[r][c]] : "^";
 }
 
-function moveGuard(map: string[][], dr: number, dc: number, symbol: string): void {
+function moveGuard(map: string[][], dr: number, dc: number, symbol: string, visitedCount: number): void {
     let [r, c] = getPosition(map);
     while (true) {
         let nr = r + dr, nc = c + dc;
         if (nr < 0 || nc < 0 || nr >= map.length || nc >= map[0].length) {
             map[r][c] = "X"; // Mark exit position
+            visitedCount++;
             break;
         }
         if (map[nr][nc] === "#") break;
         map[r][c] = "X";
+        visitedCount++;
         map[nr][nc] = symbol;
         r = nr; c = nc;
     }
 }
 
-function upMovement(map: string[][]) { moveGuard(map, -1, 0, "^"); }
-function rightMovement(map: string[][]) { moveGuard(map, 0, 1, ">"); }
-function downMovement(map: string[][]) { moveGuard(map, 1, 0, "v"); }
-function leftMovement(map: string[][]) { moveGuard(map, 0, -1, "<"); }
+function upMovement(map: string[][], visitedCount: number) { moveGuard(map, -1, 0, "^", visitedCount); }
+function rightMovement(map: string[][], visitedCount: number) { moveGuard(map, 0, 1, ">", visitedCount); }
+function downMovement(map: string[][], visitedCount: number) { moveGuard(map, 1, 0, "v", visitedCount); }
+function leftMovement(map: string[][], visitedCount: number) { moveGuard(map, 0, -1, "<", visitedCount); }
 
-prova(lines);
+console.log(prova(lines));
