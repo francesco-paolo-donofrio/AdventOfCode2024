@@ -16,162 +16,76 @@ function readFileContent(filePath) {
 }
 const lines = readFileContent(filePath);
 readFileContent(filePath);
-function prova() {
-    let map = [];
-    for (let str of lines) {
-        map.push(str.split(""));
-    }
-    let verticalLength = map.length;
-    let orizzontalLength = map[0].length;
-    stampaMappa(map, verticalLength, orizzontalLength);
+function prova(lines) {
+    let map = lines.map(str => str.split(""));
+    stampaMappa(map);
     let i = 0;
     let guard = "^";
-    while (isAlive(map, verticalLength, orizzontalLength)) {
+    while (isAlive(map)) {
         i++;
-        if (guard === "^") {
-            upMovement(map, verticalLength, orizzontalLength);
+        let prevPos = getPosition(map);
+        if (guard === "^")
+            upMovement(map);
+        if (guard === ">")
+            rightMovement(map);
+        if (guard === "v")
+            downMovement(map);
+        if (guard === "<")
+            leftMovement(map);
+        let pos = getPosition(map);
+        guard = rotation(map);
+        if (pos[0] === -1 || pos[1] === -1) {
+            map[prevPos[0]][prevPos[1]] = "X";
+            console.log("Movimento numero:", i);
+            stampaMappa(map);
+            break;
         }
-        if (guard === ">") {
-            rightMovement(map, verticalLength, orizzontalLength);
-        }
-        if (guard === "v") {
-            downMovement(map, verticalLength, orizzontalLength);
-        }
-        if (guard === "<") {
-            leftMovement(map, verticalLength, orizzontalLength);
-        }
-        let pos = getPosition(map, verticalLength, orizzontalLength);
-        guard = rotation(map, verticalLength, orizzontalLength);
         map[pos[0]][pos[1]] = guard;
-        if (i === 11) {
-            process.stdout.write("ROTAZIONE GUARDIA: " + guard);
-        }
-        process.stdout.write("\n");
-        process.stdout.write("Movimento numero: " + (i));
-        stampaMappa(map, verticalLength, orizzontalLength);
+        if (i === 11)
+            console.log("ROTAZIONE GUARDIA:", guard);
+        console.log("Movimento numero:", i);
+        stampaMappa(map);
     }
 }
-console.log(prova());
-function stampaMappa(map, verticalLength, orizzontalLength) {
-    for (let i = 0; i < verticalLength; i++) {
-        for (let j = 0; j < orizzontalLength; j++) {
-            process.stdout.write(map[i][j] + " ");
-        }
-        process.stdout.write("\n");
-    }
+function stampaMappa(map) {
+    console.log(map.map(row => row.join(" ")).join("\n"));
 }
-function getPosition(map, verticalLength, orizzontalLength) {
-    let currentPosition = [];
-    searching: for (let i = 0; i < verticalLength; i++) {
-        for (let j = 0; j < orizzontalLength; j++) {
-            switch (map[i][j]) {
-                case "^":
-                case ">":
-                case "v":
-                case "<":
-                    currentPosition.push(i);
-                    currentPosition.push(j);
-                    return currentPosition;
-                    break searching;
-            }
+function getPosition(map) {
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+            if (["^", ">", "v", "<"].includes(map[i][j]))
+                return [i, j];
         }
     }
     return [-1, -1];
 }
-function isAlive(map, verticalLength, orizzontalLength) {
-    for (let i = 0; i < verticalLength; i++) {
-        for (let j = 0; j < orizzontalLength; j++) {
-            switch (map[i][j]) {
-                case "^":
-                case ">":
-                case "v":
-                case "<":
-                    return true;
-            }
-        }
-    }
-    return false;
+function isAlive(map) {
+    return map.some(row => row.some(cell => ["^", ">", "v", "<"].includes(cell)));
 }
-function rotation(map, verticalLength, orizzontalLength) {
-    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
-    let guard = "";
-    if (map[currentPosition[0]][currentPosition[1]] === "^") {
-        guard = ">";
-    }
-    else if (map[currentPosition[0]][currentPosition[1]] === ">") {
-        guard = "v";
-    }
-    else if (map[currentPosition[0]][currentPosition[1]] === "v") {
-        guard = "<";
-    }
-    else if (map[currentPosition[0]][currentPosition[1]] === "<") {
-        guard = "^";
-    }
-    ;
-    return guard;
+function rotation(map) {
+    const rotations = { "^": ">", ">": "v", "v": "<", "<": "^" };
+    let [r, c] = getPosition(map);
+    return r !== -1 && c !== -1 ? rotations[map[r][c]] : "^";
 }
-function upMovement(map, verticalLength, orizzontalLength) {
-    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
-    for (let i = currentPosition[0]; i >= 0; i--) {
-        if (i === 0) {
-            map[i][currentPosition[1]] = "X";
+function moveGuard(map, dr, dc, symbol) {
+    let [r, c] = getPosition(map);
+    while (true) {
+        let nr = r + dr, nc = c + dc;
+        if (nr < 0 || nc < 0 || nr >= map.length || nc >= map[0].length) {
+            map[r][c] = "X";
             break;
         }
-        if (map[i - 1][currentPosition[1]] === "#") {
+        if (map[nr][nc] === "#")
             break;
-        }
-        else {
-            map[i][currentPosition[1]] = "X";
-            map[i - 1][currentPosition[1]] = "^";
-        }
+        map[r][c] = "X";
+        map[nr][nc] = symbol;
+        r = nr;
+        c = nc;
     }
 }
-function rightMovement(map, verticalLength, orizzontalLength) {
-    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
-    for (let j = currentPosition[1]; j < orizzontalLength; j++) {
-        if (j === orizzontalLength - 1) {
-            map[currentPosition[0]][j] = "X";
-            break;
-        }
-        if (map[currentPosition[0]][j + 1] === "#") {
-            break;
-        }
-        else {
-            map[currentPosition[0]][j] = "X";
-            map[currentPosition[0]][j + 1] = ">";
-        }
-    }
-}
-function downMovement(map, verticalLength, orizzontalLength) {
-    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
-    for (let i = currentPosition[0]; i < verticalLength; i++) {
-        if (i === verticalLength - 1) {
-            map[i][currentPosition[1]] = "X";
-            break;
-        }
-        if (map[i + 1][currentPosition[1]] === "#") {
-            break;
-        }
-        else {
-            map[i][currentPosition[1]] = "X";
-            map[i + 1][currentPosition[1]] = "v";
-        }
-    }
-}
-function leftMovement(map, verticalLength, orizzontalLength) {
-    let currentPosition = getPosition(map, verticalLength, orizzontalLength);
-    for (let j = currentPosition[1]; j >= 0; j--) {
-        if (j === 0) {
-            map[currentPosition[0]][j] = "X";
-            break;
-        }
-        if (map[currentPosition[0]][j - 1] === "#") {
-            break;
-        }
-        else {
-            map[currentPosition[0]][j] = "X";
-            map[currentPosition[0]][j - 1] = "<";
-        }
-    }
-}
+function upMovement(map) { moveGuard(map, -1, 0, "^"); }
+function rightMovement(map) { moveGuard(map, 0, 1, ">"); }
+function downMovement(map) { moveGuard(map, 1, 0, "v"); }
+function leftMovement(map) { moveGuard(map, 0, -1, "<"); }
+prova(lines);
 //# sourceMappingURL=index.js.map
