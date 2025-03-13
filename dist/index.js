@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import _ from "lodash";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const filePath = path.join(__dirname, '../dist/InputsAdvent/AdventInput.txt');
@@ -114,6 +115,16 @@ function getCleanedMap(lines) {
     let map = lines.map(str => str.split(""));
     return map;
 }
+function normalizeMap(map) {
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+            if (map[i][j] === "^" || map[i][j] === "v" || map[i][j] === ">" || map[i][j] === "<") {
+                map[i][j] = "X";
+            }
+        }
+    }
+    return map;
+}
 function provaPart2(oldMap, lines) {
     let listOfObstacle = getObstaclePosition(oldMap);
     let resultOfLoop = 0;
@@ -132,11 +143,12 @@ function provaPart2(oldMap, lines) {
         let listArr = [];
         let guard = "^";
         while (isAlive(map)) {
-            listArr.push(map);
+            listArr.push(normalizeMap(map));
             if (listArr.length === 5) {
-                if (listArr[0] === listArr[4]) {
+                if (_.isEqual(listArr[0], listArr[4])) {
                     resultOfLoop++;
                     console.log("Loop detected in obstacle number: " + obstacleCount);
+                    console.log("MAPPE: " + listArr[0] + ("\n\n") + listArr[4]);
                     stampaMappa(map);
                     listArr.length = 0;
                     break;
