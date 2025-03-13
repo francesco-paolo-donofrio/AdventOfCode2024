@@ -18,7 +18,6 @@ const lines = readFileContent(filePath);
 readFileContent(filePath);
 function prova(lines) {
     let map = lines.map(str => str.split(""));
-    let visitedCount = 0;
     stampaMappa(map);
     let i = 0;
     let guard = "^";
@@ -26,21 +25,20 @@ function prova(lines) {
         i++;
         let prevPos = getPosition(map);
         if (guard === "^")
-            upMovement(map, visitedCount);
+            upMovement(map);
         if (guard === ">")
-            rightMovement(map, visitedCount);
+            rightMovement(map);
         if (guard === "v")
-            downMovement(map, visitedCount);
+            downMovement(map);
         if (guard === "<")
-            leftMovement(map, visitedCount);
+            leftMovement(map);
         let pos = getPosition(map);
         guard = rotation(map);
         if (pos[0] === -1 || pos[1] === -1) {
             map[prevPos[0]][prevPos[1]] = "X";
-            visitedCount++;
             console.log("Movimento numero:", i);
             stampaMappa(map);
-            console.log("Posizioni visitate:", visitedCount);
+            console.log("Posizioni visitate:");
             break;
         }
         map[pos[0]][pos[1]] = guard;
@@ -51,6 +49,7 @@ function prova(lines) {
     }
     let countedX = XCount(map);
     console.log("Posizioni visitate:", countedX);
+    provaPart2(map, lines);
 }
 function XCount(map) {
     let visitedCount = 0;
@@ -82,27 +81,63 @@ function rotation(map) {
     let [r, c] = getPosition(map);
     return r !== -1 && c !== -1 ? rotations[map[r][c]] : "^";
 }
-function moveGuard(map, dr, dc, symbol, visitedCount) {
+function moveGuard(map, dr, dc, symbol) {
     let [r, c] = getPosition(map);
     while (true) {
         let nr = r + dr, nc = c + dc;
         if (nr < 0 || nc < 0 || nr >= map.length || nc >= map[0].length) {
             map[r][c] = "X";
-            visitedCount++;
             break;
         }
-        if (map[nr][nc] === "#")
+        if (map[nr][nc] === "#" || map[nr][nc] === "O")
             break;
         map[r][c] = "X";
-        visitedCount++;
         map[nr][nc] = symbol;
         r = nr;
         c = nc;
     }
 }
-function upMovement(map, visitedCount) { moveGuard(map, -1, 0, "^", visitedCount); }
-function rightMovement(map, visitedCount) { moveGuard(map, 0, 1, ">", visitedCount); }
-function downMovement(map, visitedCount) { moveGuard(map, 1, 0, "v", visitedCount); }
-function leftMovement(map, visitedCount) { moveGuard(map, 0, -1, "<", visitedCount); }
+function getObstaclePosition(map) {
+    let positionsArray = [];
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+            if (map[i][j] === "X") {
+                positionsArray.push(i + "," + j);
+            }
+        }
+    }
+    console.log(positionsArray);
+    return positionsArray;
+}
+function getCleanedMap(lines) {
+    let map = lines.map(str => str.split(""));
+    return map;
+}
+function provaPart2(map, lines) {
+    let listOfObstacle = getObstaclePosition(map);
+    let obstacleCount = 0;
+    while (obstacleCount < listOfObstacle.length) {
+        let cleanedMap = getCleanedMap(lines);
+        let singleObstacle = listOfObstacle[obstacleCount].split(",");
+        if (cleanedMap[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] === ".") {
+            cleanedMap[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] = "O";
+            obstacleCount++;
+        }
+        else {
+            obstacleCount++;
+            continue;
+        }
+        let listArr = [];
+        listArr.push(cleanedMap, map);
+        console.log(listArr[1]);
+        break;
+    }
+}
+function upMovement(map) {
+    moveGuard(map, -1, 0, "^");
+}
+function rightMovement(map) { moveGuard(map, 0, 1, ">"); }
+function downMovement(map) { moveGuard(map, 1, 0, "v"); }
+function leftMovement(map) { moveGuard(map, 0, -1, "<"); }
 console.log(prova(lines));
 //# sourceMappingURL=index.js.map

@@ -755,7 +755,7 @@ readFileContent(filePath);
 
 function prova(lines: string[]) {
     let map: string[][] = lines.map(str => str.split(""));
-    let visitedCount = 0; 
+     
     stampaMappa(map);
 
     let i = 0;
@@ -766,20 +766,20 @@ function prova(lines: string[]) {
         i++;
         let prevPos = getPosition(map);
         
-        if (guard === "^") upMovement(map, visitedCount);
-        if (guard === ">") rightMovement(map, visitedCount);
-        if (guard === "v") downMovement(map, visitedCount);
-        if (guard === "<") leftMovement(map, visitedCount);
+        if (guard === "^") upMovement(map, );
+        if (guard === ">") rightMovement(map, );
+        if (guard === "v") downMovement(map, );
+        if (guard === "<") leftMovement(map, );
 
         let pos = getPosition(map);
         guard = rotation(map);
         
         if (pos[0] === -1 || pos[1] === -1) {
             map[prevPos[0]][prevPos[1]] = "X"; // Mark last position before exiting
-            visitedCount++;
+            
             console.log("Movimento numero:", i);
             stampaMappa(map);
-            console.log("Posizioni visitate:", visitedCount);
+            console.log("Posizioni visitate:", );
             break;
         }
         
@@ -792,13 +792,14 @@ function prova(lines: string[]) {
 
     let countedX = XCount(map);
     console.log("Posizioni visitate:", countedX);
+    provaPart2(map, lines);
 }
 
 
 
 
 function XCount(map: string[][]): number {
-    let visitedCount = 0;
+    let visitedCount : number = 0;
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[i].length; j++) {
             if (map[i][j] === "X") visitedCount++;
@@ -830,18 +831,18 @@ function rotation(map: string[][]): string {
     return r !== -1 && c !== -1 ? rotations[map[r][c]] : "^";
 }
 
-function moveGuard(map: string[][], dr: number, dc: number, symbol: string, visitedCount: number): void {
+function moveGuard(map: string[][], dr: number, dc: number, symbol: string, ): void {
     let [r, c] = getPosition(map);
     while (true) {
         let nr = r + dr, nc = c + dc;
         if (nr < 0 || nc < 0 || nr >= map.length || nc >= map[0].length) {
             map[r][c] = "X"; // Mark exit position
-            visitedCount++;
+            
             break;
         }
         if (map[nr][nc] === "#" || map[nr][nc] === "O") break;
         map[r][c] = "X";
-        visitedCount++;
+        
         map[nr][nc] = symbol;
         r = nr; c = nc;
     }
@@ -853,20 +854,82 @@ function getObstaclePosition(map: string[][]): string[]{
         for (let j = 0; j < map[i].length; j++) {
             if (map[i][j] === "X"){
                 positionsArray.push(i + "," + j);
-                
             }
         }
     }
+    console.log(positionsArray);
     return positionsArray;
 }
 
-function provaPart2(map : string[][], lines: string[]){
-    
+function getCleanedMap(lines : string[]): string[][]{
+    let map: string[][] = lines.map(str => str.split(""));
+    return map;
 }
 
-function upMovement(map: string[][], visitedCount: number) { moveGuard(map, -1, 0, "^", visitedCount); }
-function rightMovement(map: string[][], visitedCount: number) { moveGuard(map, 0, 1, ">", visitedCount); }
-function downMovement(map: string[][], visitedCount: number) { moveGuard(map, 1, 0, "v", visitedCount); }
-function leftMovement(map: string[][], visitedCount: number) { moveGuard(map, 0, -1, "<", visitedCount); }
+function provaPart2(oldMap : string[][], lines: string[]){
+    let listOfObstacle : string[] = getObstaclePosition(oldMap);
+    let resultOfLoop : number = 0;
+    let obstacleCount : number = 0;
+    
+    while (obstacleCount < listOfObstacle.length){
+        let map : string[][] = getCleanedMap(lines);
+        
+        
+        let singleObstacle :string[] = listOfObstacle[obstacleCount].split(",");
 
+        if (map[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] === "."){
+            map[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] = "O";
+            obstacleCount++;
+            // console.log("Ostacolo " + obstacleCount + " piazzato in posizione: " + singleObstacle[0] + " " + singleObstacle[1]);
+            // console.log(map.map(row => row.join(" ")).join("\n"));
+        }else{
+            obstacleCount++;
+            continue;
+        }
+
+        let listArr : string[][][] = [];
+        let guard : string = "^";
+
+        while (isAlive(map)) {
+            listArr.push(map);
+
+            if (listArr.length === 5){
+                if (listArr[0] === listArr[4]){
+                    resultOfLoop++;
+                    console.log("Loop detected in obstacle number: " + obstacleCount);
+                    break;
+                }
+            }
+            
+            let prevPos = getPosition(map);
+            
+            if (guard === "^") upMovement(map);
+            if (guard === ">") rightMovement(map);
+            if (guard === "v") downMovement(map);
+            if (guard === "<") leftMovement(map);
+    
+            let pos = getPosition(map);
+            guard = rotation(map);
+            
+            if (pos[0] === -1 || pos[1] === -1) {
+                map[prevPos[0]][prevPos[1]] = "X"; // Mark last position before exiting
+                
+                console.log("Movimento numero:");
+                stampaMappa(map);
+                console.log("Posizioni visitate:", );
+                break;
+            }
+            
+            map[pos[0]][pos[1]] = guard;
+        
+            stampaMappa(map);
+        }        
+    }
+}
+
+function upMovement(map: string[][], ) { 
+    moveGuard(map, -1, 0, "^" ); }
+function rightMovement(map: string[][], ) { moveGuard(map, 0, 1, ">" ); }
+function downMovement(map: string[][], ) { moveGuard(map, 1, 0, "v" ); }
+function leftMovement(map: string[][], ) { moveGuard(map, 0, -1, "<" ); }
 console.log(prova(lines));
