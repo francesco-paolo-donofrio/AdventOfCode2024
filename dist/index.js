@@ -49,7 +49,8 @@ function prova(lines) {
     }
     let countedX = XCount(map);
     console.log("Posizioni visitate:", countedX);
-    provaPart2(map, lines);
+    console.log("--------INIZIO PARTE 2--------");
+    console.log("risultato parte 2: " + provaPart2(map, lines));
 }
 function XCount(map) {
     let visitedCount = 0;
@@ -113,14 +114,15 @@ function getCleanedMap(lines) {
     let map = lines.map(str => str.split(""));
     return map;
 }
-function provaPart2(map, lines) {
-    let listOfObstacle = getObstaclePosition(map);
+function provaPart2(oldMap, lines) {
+    let listOfObstacle = getObstaclePosition(oldMap);
+    let resultOfLoop = 0;
     let obstacleCount = 0;
     while (obstacleCount < listOfObstacle.length) {
-        let cleanedMap = getCleanedMap(lines);
+        let map = getCleanedMap(lines);
         let singleObstacle = listOfObstacle[obstacleCount].split(",");
-        if (cleanedMap[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] === ".") {
-            cleanedMap[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] = "O";
+        if (map[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] === ".") {
+            map[parseInt(singleObstacle[0])][parseInt(singleObstacle[1])] = "O";
             obstacleCount++;
         }
         else {
@@ -128,10 +130,41 @@ function provaPart2(map, lines) {
             continue;
         }
         let listArr = [];
-        listArr.push(cleanedMap, map);
-        console.log(listArr[1]);
-        break;
+        let guard = "^";
+        while (isAlive(map)) {
+            listArr.push(map);
+            if (listArr.length === 5) {
+                if (listArr[0] === listArr[4]) {
+                    resultOfLoop++;
+                    console.log("Loop detected in obstacle number: " + obstacleCount);
+                    stampaMappa(map);
+                    listArr.length = 0;
+                    break;
+                }
+                else {
+                    listArr.length = 0;
+                    console.log("No loop detected in obstacle number: " + obstacleCount);
+                }
+            }
+            let prevPos = getPosition(map);
+            if (guard === "^")
+                upMovement(map);
+            if (guard === ">")
+                rightMovement(map);
+            if (guard === "v")
+                downMovement(map);
+            if (guard === "<")
+                leftMovement(map);
+            let pos = getPosition(map);
+            guard = rotation(map);
+            if (pos[0] === -1 || pos[1] === -1) {
+                map[prevPos[0]][prevPos[1]] = "X";
+                break;
+            }
+            map[pos[0]][pos[1]] = guard;
+        }
     }
+    return resultOfLoop;
 }
 function upMovement(map) {
     moveGuard(map, -1, 0, "^");

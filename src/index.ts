@@ -779,7 +779,7 @@ function prova(lines: string[]) {
             
             console.log("Movimento numero:", i);
             stampaMappa(map);
-            console.log("Posizioni visitate:", );
+            console.log("Posizioni visitate:");
             break;
         }
         
@@ -792,7 +792,8 @@ function prova(lines: string[]) {
 
     let countedX = XCount(map);
     console.log("Posizioni visitate:", countedX);
-    provaPart2(map, lines);
+    console.log("--------INIZIO PARTE 2--------")
+    console.log("risultato parte 2: "+provaPart2(map, lines));
 }
 
 
@@ -897,9 +898,14 @@ function provaPart2(oldMap : string[][], lines: string[]){
                 if (listArr[0] === listArr[4]){
                     resultOfLoop++;
                     console.log("Loop detected in obstacle number: " + obstacleCount);
+                    stampaMappa(map);
+                    listArr.length = 0;
                     break;
+                } else {
+                    listArr.length = 0;
+                    console.log("No loop detected in obstacle number: " + obstacleCount);
                 }
-            }
+            } 
             
             let prevPos = getPosition(map);
             
@@ -912,19 +918,16 @@ function provaPart2(oldMap : string[][], lines: string[]){
             guard = rotation(map);
             
             if (pos[0] === -1 || pos[1] === -1) {
-                map[prevPos[0]][prevPos[1]] = "X"; // Mark last position before exiting
-                
-                console.log("Movimento numero:");
-                stampaMappa(map);
-                console.log("Posizioni visitate:", );
+                map[prevPos[0]][prevPos[1]] = "X"; // Mark last position before exitin
                 break;
             }
             
             map[pos[0]][pos[1]] = guard;
         
-            stampaMappa(map);
+        
         }        
     }
+    return resultOfLoop;
 }
 
 function upMovement(map: string[][], ) { 
