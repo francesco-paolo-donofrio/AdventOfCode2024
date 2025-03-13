@@ -847,6 +847,23 @@ function moveGuard(map: string[][], dr: number, dc: number, symbol: string, visi
     }
 }
 
+function getObstaclePosition(map: string[][]): string[]{
+    let positionsArray : string[] = [];
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+            if (map[i][j] === "X"){
+                positionsArray.push(i + "," + j);
+                
+            }
+        }
+    }
+    return positionsArray;
+}
+
+function provaPart2(map : string[][], lines: string[]){
+    
+}
+
 function upMovement(map: string[][], visitedCount: number) { moveGuard(map, -1, 0, "^", visitedCount); }
 function rightMovement(map: string[][], visitedCount: number) { moveGuard(map, 0, 1, ">", visitedCount); }
 function downMovement(map: string[][], visitedCount: number) { moveGuard(map, 1, 0, "v", visitedCount); }
