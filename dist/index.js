@@ -116,14 +116,19 @@ function getCleanedMap(lines) {
     return map;
 }
 function normalizeMap(map) {
+    let copia = [];
     for (let i = 0; i < map.length; i++) {
+        copia[i] = [];
         for (let j = 0; j < map[i].length; j++) {
             if (map[i][j] === "^" || map[i][j] === "v" || map[i][j] === ">" || map[i][j] === "<") {
-                map[i][j] = "X";
+                copia[i][j] = "X";
+            }
+            else {
+                copia[i][j] = map[i][j];
             }
         }
     }
-    return map;
+    return copia;
 }
 function provaPart2(oldMap, lines) {
     let listOfObstacle = getObstaclePosition(oldMap);
