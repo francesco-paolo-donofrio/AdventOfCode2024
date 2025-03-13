@@ -839,7 +839,7 @@ function moveGuard(map: string[][], dr: number, dc: number, symbol: string, visi
             visitedCount++;
             break;
         }
-        if (map[nr][nc] === "#") break;
+        if (map[nr][nc] === "#" || map[nr][nc] === "O") break;
         map[r][c] = "X";
         visitedCount++;
         map[nr][nc] = symbol;
