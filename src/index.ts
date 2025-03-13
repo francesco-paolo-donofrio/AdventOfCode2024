@@ -779,7 +779,7 @@ function prova(lines: string[]) {
             map[prevPos[0]][prevPos[1]] = "X"; // Mark last position before exiting
 
             console.log("Movimento numero:", i);
-            stampaMappa(map);
+            // stampaMappa(map);
             console.log("Posizioni visitate:");
             break;
         }
@@ -788,7 +788,7 @@ function prova(lines: string[]) {
 
         if (i === 11) console.log("ROTAZIONE GUARDIA:", guard);
         console.log("Movimento numero:", i);
-        stampaMappa(map);
+        // stampaMappa(map);
     }
 
     let countedX = XCount(map);
@@ -889,6 +889,9 @@ function provaPart2(oldMap: string[][], lines: string[]): number {
     let listOfObstacle: string[] = getObstaclePosition(oldMap);
     let resultOfLoop: number = 0;
     let obstacleCount: number = 0;
+    console.log("NUMERO OSTACOLI: " + listOfObstacle.length)
+
+
 
     while (obstacleCount < listOfObstacle.length) {
         let map: string[][] = getCleanedMap(lines);
@@ -917,13 +920,13 @@ function provaPart2(oldMap: string[][], lines: string[]): number {
                 if (_.isEqual(listArr[0], listArr[4])) {
                     resultOfLoop++;
                     console.log("Loop detected in obstacle number: " + obstacleCount);
-                    console.log("MAPPE: " + listArr[0] + ("\n\n") + listArr[4]);
-                    stampaMappa(map);
+
+                    // stampaMappa(map);
                     listArr.length = 0;
                     break;
                 } else {
                     listArr.length = 0;
-                    console.log("No loop detected in obstacle number: " + obstacleCount);
+
                 }
             }
 
